@@ -59,6 +59,9 @@ jobs:
       - run: uv run ruff check .
       - run: uv run pytest
       - run: uv run alembic upgrade head
+      - run: uv run alembic check
+      - run: uv run alembic downgrade base
+      - run: uv run alembic upgrade head
       - name: Verify database connection
         run: >-
           uv run python -c "import asyncio;
