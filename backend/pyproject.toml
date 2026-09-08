@@ -1,0 +1,7 @@
+[project]
+name = "careerpilot-backend"
+version = "0.1.0"
+description = "CareerPilot FastAPI backend"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
