@@ -19,3 +19,9 @@ uv run pytest
 ```
 
 `GET /health` is the liveness probe. `GET /health/ready` also verifies that PostgreSQL accepts connections.
+
+## Authentication
+
+`POST /api/v1/auth/register` creates an account. Emails are trimmed and lowercased,
+passwords must contain 15–128 characters, and stored credentials use salted Argon2id
+hashes. Authentication secrets are never returned by the API.
