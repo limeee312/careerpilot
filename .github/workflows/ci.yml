@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18.6-alpine3.24
+        env:
+          POSTGRES_DB: careerpilot
+          POSTGRES_USER: careerpilot
+          POSTGRES_PASSWORD: careerpilot
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U careerpilot -d careerpilot"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://careerpilot:careerpilot@localhost:5432/careerpilot
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          enable-cache: true
+      - run: uv sync --frozen --all-groups
+      - run: uv run ruff check .
+      - run: uv run pytest
+      - run: uv run alembic upgrade head
+      - name: Verify database connection
+        run: >-
+          uv run python -c "import asyncio;
+          from app.database import check_database_connection;
+          assert asyncio.run(check_database_connection())"
+
+  container-build:
+    runs-on: ubuntu-latest
+    needs:
+      - frontend
+      - backend
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build --tag careerpilot-backend:test backend
+      - run: docker build --tag careerpilot-frontend:test frontend

@@ -1,6 +1,5 @@
 """Database engine and session lifecycle."""
 
-import os
 from collections.abc import AsyncIterator
 
 from sqlalchemy import text
@@ -10,11 +9,9 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-DEFAULT_DATABASE_URL = (
-    "postgresql+psycopg://careerpilot:careerpilot@localhost:5432/careerpilot"
-)
+from app.config import get_settings
 
-database_url = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
+database_url = get_settings().database_url
 
 engine = create_async_engine(database_url, pool_pre_ping=True)
 AsyncSessionFactory = async_sessionmaker(
@@ -37,7 +34,7 @@ async def check_database_connection() -> bool:
     try:
         async with engine.connect() as connection:
             await connection.execute(text("SELECT 1"))
-    except Exception:
+    except Exception:  # The readiness endpoint reports failure without leaking details.
         return False
     return True
 

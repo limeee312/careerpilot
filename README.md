@@ -6,7 +6,7 @@ MVP 0.1 聚焦一条可验证的核心闭环：用户维护真实简历母版，
 
 ## 当前状态
 
-项目处于 MVP 0.1 工程初始化阶段。开发任务按 `CP-001` 至 `CP-033` 顺序推进，每个任务独立提交并通过相应验收。
+项目处于 MVP 0.1 工程初始化阶段。`CP-001` 至 `CP-003` 已实现，后续任务按 Backlog 顺序推进，每个任务独立提交并通过相应验收。
 
 ## 技术栈
 
@@ -35,9 +35,44 @@ careerpilot/
 
 ## 本地开发
 
-完整的一键启动、环境变量、数据库迁移和测试说明将在 Milestone 0 完成后补齐。
+前置要求：
 
-当前前端可单独启动：
+- Node.js 24
+- Python 3.12
+- [uv](https://docs.astral.sh/uv/)
+- Docker 与 Docker Compose
+
+首次启动：
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+服务地址：
+
+- Frontend：<http://localhost:3000>
+- Backend：<http://localhost:8000>
+- OpenAPI：<http://localhost:8000/docs>
+- Liveness：<http://localhost:8000/health>
+- Readiness：<http://localhost:8000/health/ready>
+
+如需分别启动服务，先启动数据库：
+
+```bash
+docker compose up -d db
+```
+
+再启动后端：
+
+```bash
+cd backend
+uv sync --all-groups
+uv run alembic upgrade head
+uv run fastapi dev app/main.py
+```
+
+另一个终端启动前端：
 
 ```bash
 cd frontend
@@ -45,7 +80,20 @@ npm install
 npm run dev
 ```
 
-访问 <http://localhost:3000>。
+## 测试
+
+```bash
+cd backend
+uv run ruff check .
+uv run ruff format --check .
+uv run pytest
+
+cd ../frontend
+npm run lint
+npm run build
+```
+
+GitHub Actions 会额外启动真实 PostgreSQL 服务，执行迁移并验证数据库连接。
 
 ## 开发原则
 
