@@ -4,4 +4,9 @@ version = "0.1.0"
 description = "CareerPilot FastAPI backend"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "alembic==1.19.2",
+    "psycopg[binary]==3.3.5",
+    "pydantic-settings==2.15.0",
+    "sqlalchemy==2.0.52",
+]
