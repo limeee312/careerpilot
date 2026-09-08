@@ -6,8 +6,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.router import api_router
 from app.config import get_settings
 from app.database import check_database_connection, dispose_database_engine
+from app.errors import install_exception_handlers
 
 
 @asynccontextmanager
@@ -34,6 +36,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(api_router)
+install_exception_handlers(app)
 
 
 @app.get("/health", tags=["system"])
