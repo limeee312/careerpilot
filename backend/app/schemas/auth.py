@@ -8,8 +8,8 @@ PASSWORD_MIN_LENGTH = 15
 PASSWORD_MAX_LENGTH = 128
 
 
-class RegisterRequest(BaseModel):
-    """Validated account registration input."""
+class EmailPasswordRequest(BaseModel):
+    """Normalized email/password input shared by registration and login."""
 
     email: EmailStr
     password: str = Field(
@@ -32,6 +32,14 @@ class RegisterRequest(BaseModel):
         return str(value).lower()
 
 
+class RegisterRequest(EmailPasswordRequest):
+    """Validated account registration input."""
+
+
+class LoginRequest(EmailPasswordRequest):
+    """Validated email/password login input."""
+
+
 class RegisteredUser(BaseModel):
     """Safe subset of a newly created account."""
 
@@ -41,7 +49,19 @@ class RegisteredUser(BaseModel):
     email: EmailStr
 
 
+class CurrentUser(RegisteredUser):
+    """Public account fields returned for an authenticated session."""
+
+    name: str | None
+
+
 class RegisterResponse(BaseModel):
     """Registration success envelope."""
 
     data: RegisteredUser
+
+
+class CurrentUserResponse(BaseModel):
+    """Login and current-session success envelope."""
+
+    data: CurrentUser

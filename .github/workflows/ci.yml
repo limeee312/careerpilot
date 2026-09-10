@@ -44,6 +44,7 @@ jobs:
           --health-retries 10
     env:
       DATABASE_URL: postgresql+psycopg://careerpilot:careerpilot@localhost:5432/careerpilot
+      RUN_DB_TESTS: "1"
     defaults:
       run:
         working-directory: backend
@@ -57,8 +58,8 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen --all-groups
       - run: uv run ruff check .
-      - run: uv run pytest
       - run: uv run alembic upgrade head
+      - run: uv run pytest
       - run: uv run alembic check
       - run: uv run alembic downgrade base
       - run: uv run alembic upgrade head
