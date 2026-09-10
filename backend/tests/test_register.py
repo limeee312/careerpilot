@@ -184,7 +184,7 @@ async def test_register_endpoint_returns_conflict_for_duplicate_email(
     assert response.status_code == 409
     assert response.json() == {
         "error": {
-            "code": "AUTH_EMAIL_ALREADY_EXISTS",
+            "code": "AUTH_EMAIL_EXISTS",
             "message": "该邮箱已注册",
         }
     }

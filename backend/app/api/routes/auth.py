@@ -29,7 +29,7 @@ async def register(
     except EmailAlreadyRegisteredError as error:
         raise APIError(
             status_code=status.HTTP_409_CONFLICT,
-            code="AUTH_EMAIL_ALREADY_EXISTS",
+            code="AUTH_EMAIL_EXISTS",
             message="该邮箱已注册",
         ) from error
 
