@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-16 sm:px-10">
@@ -10,6 +12,20 @@ export default function Home() {
       <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
         职航帮助求职者比较目标岗位、理解匹配证据、生成真实可信的岗位版简历，并持续管理投递进度。
       </p>
+      <div className="mt-9 flex flex-wrap gap-3">
+        <Link
+          className="rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          href="/register"
+        >
+          免费开始
+        </Link>
+        <Link
+          className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          href="/login"
+        >
+          登录
+        </Link>
+      </div>
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         {[
           ["01", "导入职位", "粘贴 1–5 个岗位 JD，保留完整原文。"],
