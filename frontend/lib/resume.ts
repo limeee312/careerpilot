@@ -495,3 +495,20 @@ export function calculateResumeCompleteness(
 
   return { score, items, isSparse: score < 50 };
 }
+
+export function formatResumeUpdatedAt(
+  value: string,
+  timeZone?: string,
+): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "未知日期";
+  }
+
+  return new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    ...(timeZone ? { timeZone } : {}),
+  }).format(date);
+}

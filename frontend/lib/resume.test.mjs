@@ -9,6 +9,7 @@ import {
   createEmptyProject,
   createEmptyResume,
   createEmptySkill,
+  formatResumeUpdatedAt,
   validateResume,
 } from "./resume.ts";
 
@@ -18,6 +19,14 @@ test("an empty resume has zero completeness and is sparse", () => {
   assert.equal(result.score, 0);
   assert.equal(result.isSparse, true);
   assert.equal(result.items.every((item) => !item.complete), true);
+});
+
+test("resume update timestamps render as a readable calendar date", () => {
+  assert.equal(
+    formatResumeUpdatedAt("2026-09-10T09:19:11Z", "UTC"),
+    "2026年9月10日",
+  );
+  assert.equal(formatResumeUpdatedAt("not-a-date", "UTC"), "未知日期");
 });
 
 test("the documented completeness rules add up to 100 percent", () => {

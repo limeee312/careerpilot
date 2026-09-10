@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navigation = [
   { href: "/dashboard", label: "首页" },
-  { href: "/resumes/master/edit", label: "我的简历" },
+  { href: "/resumes", label: "我的简历" },
 ] as const;
 
 const upcomingNavigation = ["职位匹配", "投递管理"];
