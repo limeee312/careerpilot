@@ -1,9 +1,8 @@
 import Link from "next/link";
 
+import { AppNavigation } from "@/components/layout/app-navigation";
 import { LogoutButton } from "@/components/layout/logout-button";
 import { requireCurrentUser } from "@/lib/auth";
-
-const upcomingNavigation = ["我的简历", "职位匹配", "投递管理"];
 
 export default async function ProtectedLayout({
   children,
@@ -21,23 +20,7 @@ export default async function ProtectedLayout({
             >
               职航 CareerPilot
             </Link>
-            <nav aria-label="主导航" className="hidden items-center gap-1 md:flex">
-              <Link
-                className="rounded-lg bg-blue-50 px-3 py-2 text-sm font-semibold text-blue-700"
-                href="/dashboard"
-              >
-                首页
-              </Link>
-              {upcomingNavigation.map((item) => (
-                <span
-                  className="rounded-lg px-3 py-2 text-sm text-slate-400"
-                  key={item}
-                  title="将在后续开发步骤中开放"
-                >
-                  {item}
-                </span>
-              ))}
-            </nav>
+            <AppNavigation />
           </div>
           <div className="flex min-w-0 items-center gap-4">
             <div className="hidden min-w-0 text-right sm:block">
