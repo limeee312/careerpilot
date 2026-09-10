@@ -89,6 +89,7 @@ uv run ruff format --check .
 uv run pytest
 
 cd ../frontend
+npm test
 npm run lint
 npm run build
 ```
@@ -103,6 +104,7 @@ GitHub Actions 会额外启动真实 PostgreSQL 服务，执行迁移并验证�
 - 数据库强制所有权基数、级联删除、经历类型和技能名称唯一性。
 - `GET /api/v1/resume/master` 获取当前用户母版，`PUT` 同一路径在一个事务中创建或更新全部内容；
 - 简历日期按 `YYYY-MM` 收发，数据库以当月 1 日保存，不把存储用日期展示为真实日。
+- `/resumes/master/edit` 提供受登录保护的结构化简历编辑器，支持分区增删、排序、保存状态与确定性完整度提示。
 
 ## 开发原则
 

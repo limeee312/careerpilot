@@ -1233,8 +1233,10 @@ Request 示例：
 Route：
 
 ```text
-/app/resumes/master/edit
+/resumes/master/edit
 ```
+
+实现位于 Next.js `(app)` 路由组中；路由组名称不进入公开 URL。
 
 布局：
 
