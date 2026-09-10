@@ -77,12 +77,14 @@ async def test_resume_graph_uniqueness_and_database_cascades() -> None:
         async with AsyncSessionFactory() as session:
             session.add(user)
             await session.commit()
+            user_id = user.id
+            master_id = master.id
 
             assert (
                 await session.scalar(
                     select(func.count())
                     .select_from(ResumeMaster)
-                    .where(ResumeMaster.id == master.id)
+                    .where(ResumeMaster.id == master_id)
                 )
                 == 1
             )
@@ -90,7 +92,7 @@ async def test_resume_graph_uniqueness_and_database_cascades() -> None:
                 await session.scalar(
                     select(func.count())
                     .select_from(ResumeEducation)
-                    .where(ResumeEducation.resume_master_id == master.id)
+                    .where(ResumeEducation.resume_master_id == master_id)
                 )
                 == 1
             )
@@ -98,7 +100,7 @@ async def test_resume_graph_uniqueness_and_database_cascades() -> None:
                 await session.scalar(
                     select(func.count())
                     .select_from(ResumeExperience)
-                    .where(ResumeExperience.resume_master_id == master.id)
+                    .where(ResumeExperience.resume_master_id == master_id)
                 )
                 == 1
             )
@@ -106,7 +108,7 @@ async def test_resume_graph_uniqueness_and_database_cascades() -> None:
                 await session.scalar(
                     select(func.count())
                     .select_from(ResumeProject)
-                    .where(ResumeProject.resume_master_id == master.id)
+                    .where(ResumeProject.resume_master_id == master_id)
                 )
                 == 1
             )
@@ -114,24 +116,24 @@ async def test_resume_graph_uniqueness_and_database_cascades() -> None:
                 await session.scalar(
                     select(func.count())
                     .select_from(ResumeSkill)
-                    .where(ResumeSkill.resume_master_id == master.id)
+                    .where(ResumeSkill.resume_master_id == master_id)
                 )
                 == 1
             )
 
-            session.add(ResumeMaster(user_id=user.id))
+            session.add(ResumeMaster(user_id=user_id))
             with pytest.raises(IntegrityError):
                 await session.commit()
             await session.rollback()
 
-            await session.execute(delete(User).where(User.id == user.id))
+            await session.execute(delete(User).where(User.id == user_id))
             await session.commit()
 
             assert (
                 await session.scalar(
                     select(func.count())
                     .select_from(ResumeMaster)
-                    .where(ResumeMaster.id == master.id)
+                    .where(ResumeMaster.id == master_id)
                 )
                 == 0
             )
@@ -145,7 +147,7 @@ async def test_resume_graph_uniqueness_and_database_cascades() -> None:
                     await session.scalar(
                         select(func.count())
                         .select_from(model)
-                        .where(model.resume_master_id == master.id)
+                        .where(model.resume_master_id == master_id)
                     )
                     == 0
                 )
