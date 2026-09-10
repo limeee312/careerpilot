@@ -2351,8 +2351,10 @@ draft
 Route：
 
 ```text
-/app/resumes
+/resumes
 ```
+
+实现位于 Next.js `(app)` 路由组中；路由组名称不进入公开 URL。
 
 显示：
 
