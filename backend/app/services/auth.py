@@ -1,16 +1,23 @@
 """Authentication application services."""
 
+from pwdlib.exceptions import UnknownHashError
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.user import User
-from app.schemas.auth import RegisterRequest
-from app.security import hash_password
+from app.schemas.auth import LoginRequest, RegisterRequest
+from app.security import hash_password, verify_password
+
+DUMMY_PASSWORD_HASH = hash_password("not-a-real-careerpilot-user-password")
 
 
 class EmailAlreadyRegisteredError(Exception):
     """Raised when registration targets an existing account email."""
+
+
+class InvalidCredentialsError(Exception):
+    """Raised when login credentials do not identify a user."""
 
 
 def _is_email_uniqueness_error(error: IntegrityError) -> bool:
@@ -50,4 +57,25 @@ async def register_user(
         raise
 
     await session.refresh(user)
+    return user
+
+
+async def authenticate_user(
+    session: AsyncSession,
+    credentials: LoginRequest,
+) -> User:
+    """Validate credentials without revealing whether an email exists."""
+
+    user = await session.scalar(
+        select(User).where(User.email == str(credentials.email))
+    )
+    encoded_hash = user.password_hash if user is not None else DUMMY_PASSWORD_HASH
+
+    try:
+        password_matches = verify_password(credentials.password, encoded_hash)
+    except UnknownHashError:
+        password_matches = False
+
+    if user is None or not password_matches:
+        raise InvalidCredentialsError
     return user

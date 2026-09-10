@@ -3,10 +3,11 @@
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import SecretStr
+from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT_ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
+DEVELOPMENT_JWT_SECRET = "development-only-change-me-before-production"
 
 
 class Settings(BaseSettings):
@@ -22,8 +23,8 @@ class Settings(BaseSettings):
     database_url: str = (
         "postgresql+psycopg://careerpilot:careerpilot@localhost:5432/careerpilot"
     )
-    jwt_secret: SecretStr = SecretStr("")
-    jwt_expire_minutes: int = 60
+    jwt_secret: SecretStr = SecretStr(DEVELOPMENT_JWT_SECRET)
+    jwt_expire_minutes: int = Field(default=60, gt=0, le=1440)
     frontend_url: str = "http://localhost:3000"
     openai_api_key: SecretStr | None = None
     openai_model: str | None = None
@@ -33,6 +34,25 @@ class Settings(BaseSettings):
         """Return the configured browser origin without a trailing slash."""
 
         return [self.frontend_url.rstrip("/")]
+
+    @property
+    def secure_cookies(self) -> bool:
+        """Require HTTPS-only authentication cookies outside local development."""
+
+        return self.app_env.casefold() not in {"development", "test"}
+
+    @model_validator(mode="after")
+    def validate_production_jwt_secret(self) -> "Settings":
+        """Refuse to start a deployed environment with a weak default secret."""
+
+        secret = self.jwt_secret.get_secret_value()
+        if self.secure_cookies and (
+            secret == DEVELOPMENT_JWT_SECRET or len(secret) < 32
+        ):
+            raise ValueError(
+                "JWT_SECRET must contain at least 32 characters outside development"
+            )
+        return self
 
 
 @lru_cache
