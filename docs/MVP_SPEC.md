@@ -1504,36 +1504,43 @@ AI Context 不需要发送：
 
 ```json
 {
-  "summary": "string",
-
-  "responsibilities": [
+  "role_summary": "string",
+  "responsibilities_summary": [
     "string"
   ],
-
-  "hard_requirements": [
+  "requirements": [
     {
-      "type": "education | experience | graduation | major | language | certificate | location | other",
-      "requirement": "string"
+      "requirement_key": "R1",
+      "requirement_type": "HARD",
+      "dimension": null,
+      "requirement_text": "本科及以上学历",
+      "source_quote": "本科及以上学历",
+      "importance": 1
     }
   ],
-
-  "preferred_requirements": [
-    "string"
-  ],
-
-  "abilities": [
-    "string"
-  ],
-
-  "skills": [
-    "string"
-  ],
-
   "business_domains": [
+    "string"
+  ],
+  "tools": [
+    "string"
+  ],
+  "ambiguous_points": [
     "string"
   ]
 }
 ```
+
+该逐条 Requirement 契约取代早期的聚合式
+`hard_requirements / preferred_requirements / abilities / skills` 设计，
+以 `docs/AI_SKILLS.md` 的 `job_parser_v1` 为最终工程基线。
+
+其中：
+
+- `HARD` 的 `dimension` 必须为 `null`；
+- 非 `HARD` 必须映射一个主要能力维度；
+- `requirement_key` 必须从 `R1` 开始连续且唯一；
+- `source_quote` 必须能在原始 JD 中定位；
+- Parser 不输出总分、推荐等级或候选人判断。
 
 所有数组：
 

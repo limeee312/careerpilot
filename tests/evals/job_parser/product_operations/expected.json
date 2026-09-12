@@ -1,0 +1,65 @@
+{
+  "role_summary": "负责用户运营策略、数据分析和跨团队项目推进。",
+  "responsibilities_summary": [
+    "制定并执行用户运营策略",
+    "分析用户行为数据并推动产品优化",
+    "跨团队推进运营项目落地"
+  ],
+  "requirements": [
+    {
+      "requirement_key": "R1",
+      "requirement_type": "CORE",
+      "dimension": "RESPONSIBILITY",
+      "requirement_text": "负责产品用户运营策略制定与执行",
+      "source_quote": "负责产品用户运营策略制定与执行",
+      "importance": 2
+    },
+    {
+      "requirement_key": "R2",
+      "requirement_type": "CORE",
+      "dimension": "TOOLS_METHODS",
+      "requirement_text": "通过用户行为数据分析发现问题并推动产品优化",
+      "source_quote": "通过用户行为数据分析发现问题并推动产品优化",
+      "importance": 1
+    },
+    {
+      "requirement_key": "R3",
+      "requirement_type": "STANDARD",
+      "dimension": "OWNERSHIP",
+      "requirement_text": "联动产品、研发和市场团队推进运营项目落地",
+      "source_quote": "联动产品、研发和市场团队推进运营项目落地",
+      "importance": 1
+    },
+    {
+      "requirement_key": "R4",
+      "requirement_type": "HARD",
+      "dimension": null,
+      "requirement_text": "本科及以上学历",
+      "source_quote": "本科及以上学历",
+      "importance": 1
+    },
+    {
+      "requirement_key": "R5",
+      "requirement_type": "STANDARD",
+      "dimension": "TOOLS_METHODS",
+      "requirement_text": "具备良好的数据分析能力",
+      "source_quote": "具备良好的数据分析能力",
+      "importance": 1
+    },
+    {
+      "requirement_key": "R6",
+      "requirement_type": "PREFERRED",
+      "dimension": "TOOLS_METHODS",
+      "requirement_text": "熟悉 SQL",
+      "source_quote": "熟悉SQL优先",
+      "importance": 1
+    }
+  ],
+  "business_domains": [
+    "用户运营"
+  ],
+  "tools": [
+    "SQL"
+  ],
+  "ambiguous_points": []
+}
