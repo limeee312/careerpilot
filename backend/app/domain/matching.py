@@ -1,6 +1,6 @@
 """Shared parsing and matching enums used across AI and persistence layers."""
 
-from enum import StrEnum
+from enum import IntEnum, StrEnum
 
 
 class RequirementType(StrEnum):
@@ -38,6 +38,16 @@ class EvidenceGrade(StrEnum):
     B = "B"
     C = "C"
     X = "X"
+
+
+class MatchLevel(IntEnum):
+    """Directness and depth of resume evidence for one job requirement."""
+
+    NONE = 0
+    WEAK = 1
+    TRANSFERABLE = 2
+    DIRECT_PARTIAL = 3
+    DIRECT_STRONG = 4
 
 
 class AssessmentStatus(StrEnum):
