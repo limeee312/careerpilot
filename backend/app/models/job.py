@@ -22,6 +22,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
 
 if TYPE_CHECKING:
+    from app.models.matching import JobMatchResult, JobParseResult
     from app.models.user import User
 
 
@@ -109,6 +110,11 @@ class Job(UUIDPrimaryKeyMixin, TimestampMixin, Base):
 
     __tablename__ = "jobs"
     __table_args__ = (
+        UniqueConstraint(
+            "id",
+            "user_id",
+            name="jobs_id_user_id_key",
+        ),
         ForeignKeyConstraint(
             ["batch_id", "user_id"],
             ["job_match_batches.id", "job_match_batches.user_id"],
@@ -132,3 +138,15 @@ class Job(UUIDPrimaryKeyMixin, TimestampMixin, Base):
     raw_jd: Mapped[str] = mapped_column(Text, nullable=False)
 
     batch: Mapped[JobMatchBatch] = relationship(back_populates="jobs")
+    parse_results: Mapped[list["JobParseResult"]] = relationship(
+        back_populates="job",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+        order_by="JobParseResult.created_at",
+    )
+    match_results: Mapped[list["JobMatchResult"]] = relationship(
+        back_populates="job",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+        order_by="JobMatchResult.created_at",
+    )

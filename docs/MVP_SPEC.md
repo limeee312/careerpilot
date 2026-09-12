@@ -686,15 +686,6 @@ source_url
 
 raw_jd
 
-responsibilities JSONB
-requirements JSONB
-hard_requirements JSONB
-preferred_requirements JSONB
-skill_tags JSONB
-business_tags JSONB
-
-parse_status
-
 created_at
 updated_at
 ```
@@ -708,6 +699,15 @@ raw_jd
 永远保留用户粘贴的原始文本。
 
 AI 解析结果不能覆盖原文。
+
+每次解析写入独立的：
+
+```text
+job_parse_results
+└── job_requirements
+```
+
+同一 Job 可以有多次解析历史，默认读取最新的成功结果。
 
 ---
 
@@ -724,11 +724,13 @@ id
 user_id
 job_id
 resume_master_id
+job_parse_result_id
+ai_run_id NULL
 
 eligibility_status
-eligibility_reasons JSONB
-
 total_score
+confidence_score
+confidence_level
 
 strengths JSONB
 gaps JSONB
@@ -738,8 +740,8 @@ recommendation_level
 resume_snapshot JSONB
 job_snapshot JSONB
 
-ai_model
 prompt_version
+model
 
 created_at
 ```
@@ -755,12 +757,21 @@ job_snapshot
 
 如果用户一个月后修改母版，历史匹配结果不能随之失去依据。
 
----
+重新分析同一 Job 必须新增 Match Result，不得覆盖旧结果。
 
-# 十八、Job Match Dimension
+逐条判断另存为：
 
 ```text
-job_match_dimensions
+match_gate_checks
+match_requirement_assessments
+```
+
+---
+
+# 十八、Job Match Dimension Score
+
+```text
+match_dimension_scores
 ```
 
 字段：
@@ -770,23 +781,25 @@ id
 match_result_id
 
 dimension
-score
+raw_score
 max_score
-
-reason
-evidence JSONB
+normalized_score
+created_at
 ```
 
 dimension 枚举：
 
 ```text
-EXPERIENCE
-ABILITY
-SKILL
-EDUCATION
-INDUSTRY
-PREFERENCE
+RESPONSIBILITY
+TOOLS_METHODS
+BUSINESS_DOMAIN
+OWNERSHIP
+OUTCOME
+COMMUNICATION
 ```
+
+该维度体系与 `DATABASE.md`、`AI_SKILLS.md` 和 `job_parser_v1` 保持一致；
+早期聚合式维度定义不再使用。
 
 ---
 
@@ -970,8 +983,12 @@ User
 │
 ├── N JobMatchBatch
 │      └── N Job
-│             └── 1 JobMatchResult
-│                    └── N JobMatchDimension
+│             ├── N JobParseResult
+│             │      └── N JobRequirement
+│             └── N JobMatchResult
+│                    ├── N MatchGateCheck
+│                    ├── N MatchRequirementAssessment
+│                    └── N MatchDimensionScore
 │
 └── N Application
        └── N ApplicationEvent

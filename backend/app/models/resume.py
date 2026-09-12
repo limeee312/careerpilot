@@ -13,6 +13,7 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    UniqueConstraint,
     false,
 )
 from sqlalchemy import Enum as SQLAlchemyEnum
@@ -37,7 +38,14 @@ class ResumeMaster(UUIDPrimaryKeyMixin, TimestampMixin, Base):
     """The single editable source resume owned by one user."""
 
     __tablename__ = "resume_masters"
-    __table_args__ = (Index("resume_masters_user_id_idx", "user_id", unique=True),)
+    __table_args__ = (
+        Index("resume_masters_user_id_idx", "user_id", unique=True),
+        UniqueConstraint(
+            "id",
+            "user_id",
+            name="resume_masters_id_user_id_key",
+        ),
+    )
 
     user_id: Mapped[UUID] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),

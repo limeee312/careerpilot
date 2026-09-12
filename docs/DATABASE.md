@@ -494,6 +494,10 @@ R4 有互联网行业经验优先
 2 = JD明确重点
 ```
 
+`sort_order` 从 1 开始，并与 `job_parser_v1` 的 `R1...Rn` 对应；同一解析结果中
+不得重复。读取时可确定性重建 `requirement_key`，无需把模型临时 Key 作为第二套
+业务标识保存。
+
 Hard Requirement：
 
 ```text
@@ -537,6 +541,16 @@ Job Parse Result
 | prompt_version | VARCHAR(50) |
 | model | VARCHAR(100) |
 | created_at | TIMESTAMPTZ |
+
+数据库使用复合外键保证：
+
+```text
+MatchResult.user_id = Job.user_id = ResumeMaster.user_id
+MatchResult.job_id = JobParseResult.job_id
+```
+
+因此即使业务层出现错误，也不能把其他用户的简历或其他职位的解析结果关联到
+当前 Match Result。
 
 不要 UPDATE 历史分析。
 
