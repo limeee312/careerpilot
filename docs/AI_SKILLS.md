@@ -2096,3 +2096,19 @@ Match Result
 ```
 
 该架构作为 CareerPilot MVP 0.1 AI 层开发基线。
+
+---
+
+# 60. MVP 0.1 Provider 实现约定
+
+`job_parser_v1` 通过 OpenAI Responses API 的 Pydantic Structured Outputs 调用。
+`OPENAI_API_KEY`、`OPENAI_MODEL` 和 `OPENAI_TIMEOUT_SECONDS` 只配置在后端环境中，
+代码不锁定具体付费模型。
+
+SDK 自带重试关闭，由 Skill Service 严格执行本文件第 51 节的策略：原始请求
+加最多一次重试。Job Parser Service 返回经过 Pydantic 和确定性引用校验的输出，
+同时携带 `skill_name`、`prompt_version`、实际模型、请求 ID、尝试次数和 Token
+用量，供后续运行记录持久化使用。
+
+CP-015 不直接把解析结果写入数据库。持久化由包含 Job 状态流转与事务边界的
+后续编排层统一完成，避免 AI Provider 适配器承担业务状态职责。

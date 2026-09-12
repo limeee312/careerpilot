@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     frontend_url: str = "http://localhost:3000"
     openai_api_key: SecretStr | None = None
     openai_model: str | None = None
+    openai_timeout_seconds: float = Field(default=30.0, gt=0, le=300)
 
     @property
     def cors_origins(self) -> list[str]:

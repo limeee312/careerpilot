@@ -11,6 +11,18 @@ uv run fastapi dev app/main.py
 
 The API is available at <http://localhost:8000>, with OpenAPI documentation at <http://localhost:8000/docs>.
 
+## AI provider configuration
+
+Job Parser uses the OpenAI Responses API with strict Pydantic Structured Outputs.
+Set `OPENAI_API_KEY` and `OPENAI_MODEL` on the backend only; neither value is sent
+to the browser. `OPENAI_TIMEOUT_SECONDS` defaults to 30 seconds.
+
+The OpenAI SDK retry loop is disabled. Each CareerPilot skill owns its documented
+retry policy, so `job_parser_v1` makes at most two provider attempts: the original
+request plus one retry for a timeout, provider 5xx response, or invalid structured
+output. It does not retry empty input, configuration errors, 4xx responses, or
+connection failures.
+
 ## Quality checks
 
 ```bash
