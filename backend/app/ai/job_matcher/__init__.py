@@ -3,7 +3,9 @@
 from app.ai.job_matcher.constants import (
     JOB_MATCHER_SKILL_NAME,
     JOB_MATCHER_VERSION,
+    MAX_JOB_MATCHER_ATTEMPTS,
 )
+from app.ai.job_matcher.prompt import JOB_MATCHER_PROMPT_V1
 from app.ai.job_matcher.schemas import (
     EvidenceSourceType,
     GapImportance,
@@ -16,6 +18,7 @@ from app.ai.job_matcher.schemas import (
     ResumeEvidenceItem,
     ResumeEvidenceRef,
 )
+from app.ai.job_matcher.service import JobMatcherResult, match_job
 from app.ai.job_matcher.validator import validate_matcher_output
 from app.domain.matching import (
     AssessmentStatus,
@@ -26,7 +29,9 @@ from app.domain.matching import (
 
 __all__ = [
     "JOB_MATCHER_SKILL_NAME",
+    "JOB_MATCHER_PROMPT_V1",
     "JOB_MATCHER_VERSION",
+    "MAX_JOB_MATCHER_ATTEMPTS",
     "AssessmentStatus",
     "EligibilityStatus",
     "EvidenceGrade",
@@ -34,6 +39,7 @@ __all__ = [
     "GapImportance",
     "GateAssessment",
     "GateEvidence",
+    "JobMatcherResult",
     "MatchGap",
     "MatchLevel",
     "MatcherInput",
@@ -41,5 +47,6 @@ __all__ = [
     "RequirementAssessment",
     "ResumeEvidenceItem",
     "ResumeEvidenceRef",
+    "match_job",
     "validate_matcher_output",
 ]

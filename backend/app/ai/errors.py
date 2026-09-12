@@ -1,6 +1,13 @@
 """Stable failures at the AI provider and validation trust boundaries."""
 
 
+class AIInputError(ValueError):
+    """The requested AI operation has no valid, processable input."""
+
+    code = "AI_INVALID_INPUT"
+    retryable = False
+
+
 class AIConfigurationError(RuntimeError):
     """Required server-side provider configuration is missing."""
 
