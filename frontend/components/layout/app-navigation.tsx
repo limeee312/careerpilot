@@ -6,9 +6,10 @@ import { usePathname } from "next/navigation";
 const navigation = [
   { href: "/dashboard", label: "首页" },
   { href: "/resumes", label: "我的简历" },
+  { href: "/job-match/new", label: "职位匹配" },
 ] as const;
 
-const upcomingNavigation = ["职位匹配", "投递管理"];
+const upcomingNavigation = ["投递管理"];
 
 export function AppNavigation() {
   const pathname = usePathname();
