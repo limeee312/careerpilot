@@ -1,9 +1,10 @@
 """Pydantic contracts for the versioned Job Parser output."""
 
-from enum import StrEnum
 from typing import Annotated, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+from app.domain.matching import MatchDimension, RequirementType
 
 NonEmptyText = Annotated[str, Field(min_length=1)]
 
@@ -28,26 +29,6 @@ class JobParserInput(JobParserSchema):
         if isinstance(value, str) and not value.strip():
             return None
         return value
-
-
-class RequirementType(StrEnum):
-    """How a requirement participates in eligibility or capability matching."""
-
-    HARD = "HARD"
-    CORE = "CORE"
-    STANDARD = "STANDARD"
-    PREFERRED = "PREFERRED"
-
-
-class MatchDimension(StrEnum):
-    """The single primary capability dimension for a non-hard requirement."""
-
-    RESPONSIBILITY = "RESPONSIBILITY"
-    TOOLS_METHODS = "TOOLS_METHODS"
-    BUSINESS_DOMAIN = "BUSINESS_DOMAIN"
-    OWNERSHIP = "OWNERSHIP"
-    OUTCOME = "OUTCOME"
-    COMMUNICATION = "COMMUNICATION"
 
 
 class ParsedRequirement(JobParserSchema):

@@ -23,6 +23,11 @@ request plus one retry for a timeout, provider 5xx response, or invalid structur
 output. It does not retry empty input, configuration errors, 4xx responses, or
 connection failures.
 
+Job parsing and matching history is stored in append-oriented records. Parser runs
+own atomic requirements; each match result owns gate checks, non-hard requirement
+assessments, and dimension subtotals. Composite foreign keys require the selected
+Job, Resume Master, and parse result to share the same user and job context.
+
 ## Quality checks
 
 ```bash

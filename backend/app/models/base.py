@@ -22,14 +22,19 @@ class UUIDPrimaryKeyMixin:
     )
 
 
-class TimestampMixin:
-    """UTC-aware creation and update timestamps shared by business tables."""
+class CreatedAtMixin:
+    """UTC-aware creation timestamp shared by immutable business records."""
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now(),
     )
+
+
+class TimestampMixin(CreatedAtMixin):
+    """UTC-aware creation and update timestamps shared by editable records."""
+
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
