@@ -17,8 +17,8 @@ const nextSteps = [
     number: "02",
     title: "导入目标职位",
     description: "粘贴真实 JD，拆解岗位要求并与简历证据逐项比较。",
-    href: null,
-    status: "即将开发",
+    href: "/job-match/new",
+    status: "手动输入",
   },
   {
     number: "03",

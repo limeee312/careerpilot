@@ -1330,8 +1330,11 @@ MVP 使用简单规则，不使用 AI。
 Route：
 
 ```text
-/app/job-match/new
+/job-match/new
 ```
+
+该页面在 Next.js `app/(app)` 路由组内实现；`(app)` 仅用于组织受保护页面，
+不会出现在浏览器 URL 中。
 
 首版只做：
 
