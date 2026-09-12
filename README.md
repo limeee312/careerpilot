@@ -6,7 +6,7 @@ MVP 0.1 聚焦一条可验证的核心闭环：用户维护真实简历母版，
 
 ## 当前状态
 
-项目处于 MVP 0.1 工程开发阶段。`CP-001` 至 `CP-016` 已实现，后续任务按 Backlog 顺序推进，每个任务独立提交并通过相应验收。
+项目处于 MVP 0.1 工程开发阶段。`CP-001` 至 `CP-017` 已实现，后续任务按 Backlog 顺序推进，每个任务独立提交并通过相应验收。
 
 ## 技术栈
 
@@ -112,6 +112,7 @@ GitHub Actions 会额外启动真实 PostgreSQL 服务，执行迁移并验证�
 - `job_parser_v1` 已建立严格的输入/输出契约：逐条要求区分 `HARD / CORE / STANDARD / PREFERRED`，非硬性要求映射单一能力维度，并由后端验证连续 Key、维度规则及 JD 原文引用。
 - Job Parser 已接入 OpenAI Responses API 的 Pydantic Structured Outputs，服务层只在超时、5xx 或无效输出时重试一次，并返回模型、Prompt 版本、请求 ID 与 Token 用量供后续持久化。
 - Job Parser 结果、原子岗位要求、Hard Gate、逐要求评估和六维得分均使用独立关系表持久化；Match Result 保存简历与 JD 快照，重新分析会追加历史记录，并由复合外键阻止跨用户或跨职位误关联。
+- `job_matcher_v1` 已建立严格的输入/输出契约：Hard Gate 与非 Hard 要求分别逐条评估，AI 不返回总分或推荐等级；后端校验要求覆盖、证据来源 ID 和简历原文引用。
 
 ## 开发原则
 

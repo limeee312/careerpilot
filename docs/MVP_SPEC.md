@@ -1714,141 +1714,130 @@ Resume：
 
 # 四十一、Match Score Rubric
 
-第一版固定：
+Matcher 不直接给维度分，而是逐条判断非 Hard Requirement 的：
+
+```text
+Match Level
++
+Evidence Grade
+```
+
+后端再按固定维度权重统一计算：
 
 | Dimension | 满分 |
 |---|---:|
-| Experience | 30 |
-| Ability | 25 |
-| Skill | 15 |
-| Education | 10 |
-| Industry | 10 |
-| Preference | 10 |
+| RESPONSIBILITY | 35 |
+| TOOLS_METHODS | 20 |
+| BUSINESS_DOMAIN | 15 |
+| OWNERSHIP | 15 |
+| OUTCOME | 10 |
+| COMMUNICATION | 5 |
 | Total | 100 |
 
-如果 MVP 0.1 尚未收集 Preference：
+Hard Requirement 只参与 Eligibility Gate，不进入能力评分。
 
-Preference 处理方式：
-
-```text
-默认记 5 / 10
-```
-
-并在 UI 标注：
-
-```text
-未填写求职偏好，本项采用中性分。
-```
-
-后续 P0 Career Profile 上线后替换。
+MVP 0.1 不把求职偏好传入 Matcher。职业偏好未来独立形成 Preference Score，
+不得用中性分污染能力匹配结果。
 
 ---
 
 # 四十二、Matcher Structured Output
 
-模型必须返回：
+模型必须按 Requirement 返回：
 
 ```json
 {
-  "eligibility": {
-    "status": "PASS",
-    "reasons": []
-  },
-
-  "dimensions": {
-    "experience": {
-      "score": 24,
+  "gate_assessments": [
+    {
+      "requirement_key": "R1",
+      "status": "PASS | WARN | FAIL",
       "reason": "...",
       "evidence": [
         {
-          "resume_evidence": "...",
-          "job_requirement": "..."
+          "source_type": "education",
+          "source_id": "...",
+          "source_quote": "..."
         }
       ]
-    },
-
-    "ability": {
-      "score": 21,
-      "reason": "...",
-      "evidence": []
-    },
-
-    "skill": {
-      "score": 11,
-      "reason": "...",
-      "evidence": []
-    },
-
-    "education": {
-      "score": 8,
-      "reason": "...",
-      "evidence": []
-    },
-
-    "industry": {
-      "score": 7,
-      "reason": "...",
-      "evidence": []
     }
-  },
-
-  "strengths": [
-    "..."
   ],
-
+  "requirement_assessments": [
+    {
+      "requirement_key": "R2",
+      "match_level": 3,
+      "evidence_grade": "A | B | C | X",
+      "status": "MATCHED | PARTIAL | CONFIRMED_GAP | UNKNOWN",
+      "reason": "...",
+      "evidence": [
+        {
+          "source_type": "experience",
+          "source_id": "...",
+          "source_quote": "..."
+        }
+      ]
+    }
+  ],
+  "strengths": ["..."],
   "gaps": [
     {
-      "gap": "...",
+      "requirement_key": "R3",
       "importance": "HIGH | MEDIUM | LOW",
-      "suggestion": "..."
+      "gap": "...",
+      "improvement_direction": "..."
     }
   ],
-
-  "recommendation": "..."
+  "overall_reasoning": "..."
 }
 ```
 
 **AI 不返回 `total_score`。**
 
+AI 也不返回：
+
+```text
+recommendation
+recommendation_level
+```
+
+每个 Hard Requirement 必须且只能出现在 `gate_assessments` 一次；每个非 Hard
+Requirement 必须且只能出现在 `requirement_assessments` 一次。
+
 ---
 
 # 四十三、总分由后端计算
 
-后端：
+后端读取 Job Requirement 与 Requirement Assessment，先应用 Evidence Cap：
 
-```text
-total_score
-=
-experience
-+
-ability
-+
-skill
-+
-education
-+
-industry
-+
-preference
+```python
+EVIDENCE_CAP = {
+    "A": 4,
+    "B": 3,
+    "C": 1,
+    "X": 0,
+}
+
+effective_level = min(
+    assessment.match_level,
+    EVIDENCE_CAP[assessment.evidence_grade],
+)
 ```
 
-必须校验：
+同一维度内按 Requirement Importance 归一化：
 
-```text
-0 <= experience <= 30
-0 <= ability <= 25
-...
+```python
+normalized_requirement_weight = (
+    requirement.importance / sum_importance_within_dimension
+)
+
+item_score = (
+    dimension_max
+    * normalized_requirement_weight
+    * effective_level
+    / 4
+)
 ```
 
-如果 AI 返回：
-
-```text
-experience = 34
-```
-
-Schema / Service 必须拒绝。
-
-不得偷偷保存错误值。
+`total_score` 为六个维度得分之和，由 Backend 计算、校验并持久化。
 
 ---
 
@@ -1857,37 +1846,31 @@ Schema / Service 必须拒绝。
 因为产品必须保证：
 
 ```text
-相同评分规则
+相同 Requirement
 +
-相同分项结果
+相同 Match Level
++
+相同 Evidence Grade
++
+相同评分规则
 =
 相同总分
 ```
 
-不能出现：
-
-```text
-24 + 21 + 11 + 8 + 7 + 5
-```
-
-AI 却输出：
-
-```text
-82
-```
-
-这种错误。
+这样在调整权重或更换模型时，评分逻辑仍然一致且可解释。
 
 ---
 
 # 四十五、AI Evidence 原则
 
-每项重要判断应优先返回：
+每条 Evidence 必须返回：
 
 ```text
-Resume Evidence
+source_type
 +
-JD Requirement
+source_id
++
+source_quote
 ```
 
 例如：
@@ -1903,15 +1886,11 @@ JD依据：
 梳理近三年需求量及全流程耗时数据，搭建数据分析体系。
 ```
 
-如果简历里没有证据：
+Backend 必须确认 `source_id` 来自输入，并允许在仅规范化空白后从对应 Resume
+Evidence 中定位 `source_quote`。无法定位时返回 `AI_INVALID_OUTPUT`。
 
-AI 必须写：
-
-```text
-未发现相关证据
-```
-
-而不是自行推断。
+简历没有写，不等于候选人明确不会：应使用 `UNKNOWN` 或 Hard Gate `WARN`，
+不得自行推断为 `CONFIRMED_GAP` 或 `FAIL`。
 
 ---
 
@@ -1919,22 +1898,12 @@ AI 必须写：
 
 后端根据 Total Score 生成：
 
-```text
-90–100
-A+ 强烈推荐
-
-80–89
-A 推荐
-
-70–79
-B 可考虑
-
-60–69
-C 匹配一般
-
-<60
-D 不优先
-```
+| Total Score | Recommendation Level |
+|---:|---|
+| 85–100 | PRIORITY |
+| 75–84 | STRONG |
+| 65–74 | SELECTIVE |
+| <65 | LOW |
 
 但 Eligibility = FAIL 时：
 
@@ -1948,6 +1917,12 @@ recommendation_level = BLOCKED
 
 ```text
 能力匹配较高，但存在明确硬性条件冲突。
+```
+
+如果没有 FAIL 但存在 WARN，页面额外显示：
+
+```text
+条件待核实
 ```
 
 ---
@@ -2085,19 +2060,20 @@ total_score DESC
 
 1 产品运营
   91分
-  A+ 强烈推荐
+  PRIORITY 优先投递
   硬性条件 PASS
   [查看详情]
 
 2 用户运营
-  86分
-  A 推荐
+  80分
+  STRONG 匹配较强
   硬性条件 PASS
 
 3 AI产品经理
-  79分
-  B 可考虑
+  69分
+  SELECTIVE 选择性投递
   硬性条件 WARN
+  条件待核实
 ```
 
 如果只有一个岗位：
@@ -3056,17 +3032,13 @@ resume validation
 application status
 ```
 
-例如：
+例如应验证：
 
 ```text
-Experience 25
-Ability 20
-Skill 10
-Education 8
-Industry 7
-Preference 5
-
-Total必须为75
+Evidence Cap 正确限制 Match Level
+同一维度内 Importance 正确归一化
+六个 Dimension Score 之和等于 Total Score
+Hard Gate 不进入能力评分
 ```
 
 ---
