@@ -173,8 +173,9 @@ async def _parse_and_persist(
     parse_record.prompt_version = result.prompt_version
     parse_record.model = result.model
     parse_record.error_code = None
-    parse_record.requirements = [
+    requirement_records = [
         JobRequirement(
+            job_parse_result_id=parse_record.id,
             requirement_type=requirement.requirement_type,
             dimension=requirement.dimension,
             requirement_text=requirement.requirement_text,
@@ -184,8 +185,17 @@ async def _parse_and_persist(
         )
         for index, requirement in enumerate(result.output.requirements, start=1)
     ]
+    session.add_all(requirement_records)
     await session.commit()
-    return result
+    requirement_ids = {
+        requirement.requirement_key: record.id
+        for requirement, record in zip(
+            result.output.requirements,
+            requirement_records,
+            strict=True,
+        )
+    }
+    return result, requirement_ids
 
 
 def _build_match_result(
@@ -194,14 +204,11 @@ def _build_match_result(
     job: Job,
     resume_id: UUID,
     resume_snapshot: dict[str, object],
-    parse_record: JobParseResult,
+    parse_result_id: UUID,
+    requirement_ids: dict[str, UUID],
     parser_output,
     matcher_result,
 ) -> JobMatchResult:
-    requirement_ids = {
-        requirement.requirement_key: requirement.id
-        for requirement in parse_record.requirements
-    }
     assessment_by_key = {
         assessment.requirement_key: assessment
         for assessment in matcher_result.output.requirement_assessments
@@ -215,7 +222,7 @@ def _build_match_result(
         user_id=user_id,
         job_id=job.id,
         resume_master_id=resume_id,
-        job_parse_result_id=parse_record.id,
+        job_parse_result_id=parse_result_id,
         eligibility_status=matcher_result.score.eligibility_status,
         total_score=matcher_result.score.total_score,
         confidence_score=matcher_result.score.confidence_score,
@@ -319,7 +326,7 @@ async def analyze_job_match_batch(
             parse_record = parse_records[job.id]
             parser_succeeded = False
             try:
-                parser_result = await _parse_and_persist(
+                parser_result, requirement_ids = await _parse_and_persist(
                     session,
                     job,
                     parse_record,
@@ -336,7 +343,8 @@ async def analyze_job_match_batch(
                     job=job,
                     resume_id=resume_data.id,
                     resume_snapshot=resume_snapshot,
-                    parse_record=parse_record,
+                    parse_result_id=parse_record.id,
+                    requirement_ids=requirement_ids,
                     parser_output=parser_result.output,
                     matcher_result=matcher_result,
                 )
