@@ -16,6 +16,12 @@ from app.models.job import BatchStatus, Job, JobMatchBatch
 from app.models.user import User
 from app.schemas.job import JobBatchCreate
 from app.services.job import create_job_batch
+from app.services.match_analysis import (
+    BatchAnalysisInProgressError,
+    BatchEmptyError,
+    BatchNotFoundError,
+    ResumeRequiredError,
+)
 
 LONG_JD = (
     "负责产品用户运营策略制定与执行，通过用户行为数据分析发现问题，"
@@ -170,3 +176,71 @@ async def test_create_job_batch_rolls_back_the_whole_batch_on_failure() -> None:
     assert pending_batch.total_jobs == 1
     assert len(pending_batch.jobs) == 1
     session.rollback.assert_awaited_once_with()
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    ("service_error", "expected_status", "expected_code"),
+    [
+        (BatchNotFoundError(), 404, "BATCH_NOT_FOUND"),
+        (ResumeRequiredError(), 409, "RESUME_REQUIRED"),
+        (BatchEmptyError(), 409, "BATCH_EMPTY"),
+        (BatchAnalysisInProgressError(), 409, "BATCH_PROCESSING"),
+    ],
+)
+async def test_analyze_job_batch_maps_business_errors(
+    monkeypatch: pytest.MonkeyPatch,
+    service_error: Exception,
+    expected_status: int,
+    expected_code: str,
+) -> None:
+    user = authenticated_user()
+    analyzer = AsyncMock(side_effect=service_error)
+    monkeypatch.setattr(job_match_routes, "analyze_job_match_batch", analyzer)
+    app.dependency_overrides[get_current_user] = lambda: user
+    app.dependency_overrides[get_db_session] = lambda: AsyncMock(spec=AsyncSession)
+    app.dependency_overrides[job_match_routes.get_ai_client] = lambda: object()
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.post(f"/api/v1/job-match/batches/{uuid4()}/analyze")
+
+    assert response.status_code == expected_status
+    assert response.json()["error"]["code"] == expected_code
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    "path_template",
+    [
+        "/api/v1/job-match/{batch_id}",
+        "/api/v1/job-match/batches/{batch_id}/results",
+    ],
+)
+async def test_result_routes_hide_missing_or_foreign_batches(
+    monkeypatch: pytest.MonkeyPatch,
+    path_template: str,
+) -> None:
+    user = authenticated_user()
+    reader = AsyncMock(side_effect=BatchNotFoundError)
+    monkeypatch.setattr(job_match_routes, "get_job_match_batch", reader)
+    app.dependency_overrides[get_current_user] = lambda: user
+    app.dependency_overrides[get_db_session] = lambda: AsyncMock(spec=AsyncSession)
+    batch_id = uuid4()
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.get(path_template.format(batch_id=batch_id))
+
+    assert response.status_code == 404
+    assert response.json() == {
+        "error": {
+            "code": "BATCH_NOT_FOUND",
+            "message": "职位批次不存在",
+        }
+    }
+    reader.assert_awaited_once()

@@ -28,6 +28,17 @@ own atomic requirements; each match result owns gate checks, non-hard requiremen
 assessments, and dimension subtotals. Composite foreign keys require the selected
 Job, Resume Master, and parse result to share the same user and job context.
 
+`POST /api/v1/job-match/batches/{batch_id}/analyze` creates a fresh Parser run
+for every job, then executes Parser and Matcher with per-job failure isolation.
+Successful results are committed independently, so a mixed batch finishes as
+`PARTIAL_FAILED` without discarding completed jobs. Reanalysis appends history.
+
+`GET /api/v1/job-match/{batch_id}` returns the current run's progress and ranked
+result summaries. `GET /api/v1/job-match/batches/{batch_id}/results` is a
+compatibility alias for the same owner-filtered response. Normal candidates use
+the deterministic near-tie ranking rules; hard-gate failures remain unranked and
+appear after the normal sequence.
+
 ## Quality checks
 
 ```bash

@@ -2858,6 +2858,7 @@ Job Matching：
 POST   /job-match/batches
 GET    /job-match/batches/{id}
 POST   /job-match/batches/{id}/analyze
+GET    /job-match/{id}
 GET    /job-match/batches/{id}/results
 
 GET    /jobs/{id}
