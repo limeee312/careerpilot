@@ -12,6 +12,7 @@ from app.ai.job_matcher.constants import (
 )
 from app.ai.job_matcher.prompt import JOB_MATCHER_PROMPT_V1
 from app.ai.job_matcher.schemas import MatcherInput, MatcherOutput
+from app.ai.job_matcher.scoring import MatchScoringResult, score_match
 from app.ai.job_matcher.validator import validate_matcher_output
 from app.ai.job_parser.schemas import JobParserOutput
 from app.schemas.resume import ResumeMasterData
@@ -22,6 +23,7 @@ class JobMatcherResult:
     """Validated Matcher output and metadata needed by future persistence."""
 
     output: MatcherOutput
+    score: MatchScoringResult
     matcher_input: MatcherInput
     skill_name: str
     prompt_version: str
@@ -67,6 +69,7 @@ async def match_job(
 
         return JobMatcherResult(
             output=output,
+            score=score_match(parsed_job, output),
             matcher_input=matcher_input,
             skill_name=JOB_MATCHER_SKILL_NAME,
             prompt_version=JOB_MATCHER_VERSION,
