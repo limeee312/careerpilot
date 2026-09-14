@@ -8,7 +8,6 @@ import {
   buildJobBatchPayload,
   createEmptyJobBatch,
   createEmptyManualJob,
-  type JobBatchData,
   type JobBatchDraft,
   type JobBatchEnvelope,
   type JobBatchValidationError,
@@ -26,7 +25,6 @@ export function ManualJobForm() {
     useState<JobBatchValidationError | null>(null);
   const [requestError, setRequestError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [savedBatch, setSavedBatch] = useState<JobBatchData | null>(null);
 
   function updateJob(clientKey: string, field: JobField, value: string) {
     setDraft((current) => ({
@@ -83,7 +81,7 @@ export function ManualJobForm() {
           body: JSON.stringify(buildJobBatchPayload(draft)),
         },
       );
-      setSavedBatch(response.data);
+      router.push(`/job-match/${response.data.id}`);
     } catch (error: unknown) {
       if (error instanceof ApiError && error.status === 401) {
         router.replace("/login");
@@ -100,52 +98,6 @@ export function ManualJobForm() {
     }
   }
 
-  function startAnotherBatch() {
-    setDraft(createEmptyJobBatch());
-    setSavedBatch(null);
-    setValidationError(null);
-    setRequestError(null);
-  }
-
-  if (savedBatch) {
-    return (
-      <section className="rounded-3xl border border-emerald-200 bg-white px-6 py-12 text-center shadow-sm sm:px-10">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-2xl text-emerald-700">
-          ✓
-        </div>
-        <p className="mt-5 text-sm font-semibold text-emerald-700">批次已保存</p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-          {savedBatch.name ?? "未命名职位批次"}
-        </h1>
-        <p className="mx-auto mt-3 max-w-xl leading-7 text-slate-600">
-          已原样保存 {savedBatch.total_jobs} 个职位，当前状态为 DRAFT。AI
-          解析与匹配会在后续开发步骤接入，不会在此阶段伪造分析结果。
-        </p>
-        <dl className="mx-auto mt-7 grid max-w-lg gap-3 text-left sm:grid-cols-2">
-          <div className="rounded-xl bg-slate-50 px-4 py-3">
-            <dt className="text-xs text-slate-500">批次 ID</dt>
-            <dd className="mt-1 break-all text-sm font-medium text-slate-800">
-              {savedBatch.id}
-            </dd>
-          </div>
-          <div className="rounded-xl bg-slate-50 px-4 py-3">
-            <dt className="text-xs text-slate-500">已保存职位</dt>
-            <dd className="mt-1 text-sm font-medium text-slate-800">
-              {savedBatch.total_jobs} 个
-            </dd>
-          </div>
-        </dl>
-        <button
-          className="mt-8 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
-          onClick={startAnotherBatch}
-          type="button"
-        >
-          新建另一个批次
-        </button>
-      </section>
-    );
-  }
-
   return (
     <form className="space-y-8" noValidate onSubmit={submitBatch}>
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
@@ -155,7 +107,7 @@ export function ManualJobForm() {
             新建职位匹配
           </h1>
           <p className="mt-3 leading-7 text-slate-600">
-            一次粘贴 1–5 个真实职位 JD。系统会先完整保存原始内容，后续再逐步接入结构化解析和证据匹配。
+            一次粘贴 1–5 个真实职位 JD。保存后系统会逐个解析岗位要求、匹配简历证据，并生成可解释的排序结果。
           </p>
         </div>
 
@@ -320,7 +272,7 @@ export function ManualJobForm() {
             disabled={isSaving}
             type="submit"
           >
-            {isSaving ? "正在保存…" : "保存并准备分析"}
+            {isSaving ? "正在创建批次…" : "保存并开始分析"}
           </button>
         </div>
       </section>

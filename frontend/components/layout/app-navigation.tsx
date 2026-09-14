@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navigation = [
-  { href: "/dashboard", label: "首页" },
-  { href: "/resumes", label: "我的简历" },
-  { href: "/job-match/new", label: "职位匹配" },
+  { activePrefix: "/dashboard", href: "/dashboard", label: "首页" },
+  { activePrefix: "/resumes", href: "/resumes", label: "我的简历" },
+  { activePrefix: "/job-match", href: "/job-match/new", label: "职位匹配" },
 ] as const;
 
 const upcomingNavigation = ["投递管理"];
@@ -19,7 +19,8 @@ export function AppNavigation() {
       {navigation.map((item) => {
         const isActive =
           pathname === item.href ||
-          (item.href !== "/dashboard" && pathname.startsWith(item.href));
+          (item.activePrefix !== "/dashboard" &&
+            pathname.startsWith(item.activePrefix));
         return (
           <Link
             aria-current={isActive ? "page" : undefined}
