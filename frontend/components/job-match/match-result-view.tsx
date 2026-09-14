@@ -704,15 +704,12 @@ function MatchResultCard({ job }: { job: JobMatchResultItem }) {
         </div>
 
         <div className="flex flex-wrap gap-2 lg:flex-col lg:items-stretch">
-          <button
-            aria-disabled="true"
-            className="cursor-not-allowed rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-400"
-            disabled
-            title="岗位详情将在 CP-021 开放"
-            type="button"
+          <Link
+            className="rounded-xl bg-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-blue-700"
+            href={`/jobs/${job.job_id}`}
           >
             查看详情
-          </button>
+          </Link>
           {job.source_url ? (
             <a
               className="rounded-xl border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-600 transition hover:bg-slate-50"

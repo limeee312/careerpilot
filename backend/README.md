@@ -39,6 +39,12 @@ compatibility alias for the same owner-filtered response. Normal candidates use
 the deterministic near-tie ranking rules; hard-gate failures remain unranked and
 appear after the normal sequence.
 
+`GET /api/v1/jobs/{job_id}` returns the current parse run's evidence-rich match
+detail; `/api/v1/jobs/{job_id}/match` is an alias. Both routes filter by the
+authenticated owner and include only persisted requirements, gates, assessments,
+dimension scores, strengths, gaps, and resume evidence. Missing dimensions remain
+absent so the UI can display them as `N/A` rather than zero.
+
 ## Quality checks
 
 ```bash
