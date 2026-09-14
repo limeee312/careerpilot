@@ -145,18 +145,21 @@ async def create_analysis_graph(email: str, companies: list[str]):
         )
         session.add_all([resume, batch])
         await session.flush()
-        batch.jobs = [
-            Job(
-                user_id=user.id,
-                company_name=company,
-                title="用户运营",
-                raw_jd=(
-                    "负责制定用户运营策略，分析用户行为数据并推动运营优化，"
-                    "联动产品和研发团队推进项目落地并持续复盘迭代。"
-                ),
-            )
-            for company in companies
-        ]
+        session.add_all(
+            [
+                Job(
+                    batch_id=batch.id,
+                    user_id=user.id,
+                    company_name=company,
+                    title="用户运营",
+                    raw_jd=(
+                        "负责制定用户运营策略，分析用户行为数据并推动运营优化，"
+                        "联动产品和研发团队推进项目落地并持续复盘迭代。"
+                    ),
+                )
+                for company in companies
+            ]
+        )
         await session.commit()
         return user.id, batch.id
 
