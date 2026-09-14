@@ -1,6 +1,7 @@
 """Resume-Job Matcher v1 orchestration and retry-policy tests."""
 
 from collections.abc import Mapping
+from decimal import Decimal
 from typing import Any
 
 import pytest
@@ -97,6 +98,9 @@ async def test_match_job_returns_grounded_output_and_trace_metadata() -> None:
     result = await match_job(resume_data(), parsed_job_output(), client)
 
     assert result.output.requirement_assessments[0].requirement_key == "R2"
+    assert result.score.total_score == Decimal("47.73")
+    assert result.score.display_score == 48
+    assert result.score.confidence_score == Decimal("63.64")
     assert result.skill_name == JOB_MATCHER_SKILL_NAME
     assert result.prompt_version == JOB_MATCHER_VERSION
     assert result.model == "test-model"

@@ -1839,6 +1839,10 @@ item_score = (
 
 `total_score` 为六个维度得分之和，由 Backend 计算、校验并持久化。
 
+若 JD 没有某一维度要求，该维度记为 `N/A`，不计 0 分；实际出现维度按固定权重占
+有效维度权重合计的比例重新归一至 100。后端仅持久化实际出现的维度分数，其
+`max_score` 合计为 100。
+
 ---
 
 # 四十四、为什么总分不能让 AI 算
@@ -1904,6 +1908,15 @@ Evidence 中定位 `source_quote`。无法定位时返回 `AI_INVALID_OUTPUT`。
 | 75–84 | STRONG |
 | 65–74 | SELECTIVE |
 | <65 | LOW |
+
+`total_score` 保留两位小数用于持久化和排序。页面展示分数采用 `ROUND_HALF_UP`
+四舍五入为整数，推荐等级也按该整数分档，确保显示为 85 分时不会出现 `STRONG`。
+
+同一批职位先按两位小数总分降序分组，并以每组最高分作为锚点；与锚点分差不超过
+3 分的职位视为近似并列，组内再比较 `RESPONSIBILITY` 得分率与 Confidence。
+两项仍相同才共享名次。不得通过相邻职位分数连续扩张分组。没有
+`RESPONSIBILITY` 要求的职位在该项比较中排在有适用值的职位之后；
+`Eligibility = FAIL` 不进入正常可投排序。
 
 但 Eligibility = FAIL 时：
 

@@ -774,7 +774,21 @@ N/A
 100
 ```
 
-后端负责完成。
+后端负责完成。具体规则：
+
+```python
+active_base_max = sum(DIMENSION_MAX[d] for d in active_dimensions)
+
+effective_dimension_max = (
+    DIMENSION_MAX[dimension]
+    / active_base_max
+    * 100
+)
+```
+
+数据库只保存适用维度的 `MatchDimensionScore`。其中 `max_score` 保存重新归一后的
+`effective_dimension_max`，因此适用维度的 `max_score` 合计为 100，`raw_score`
+合计与 `JobMatchResult.total_score` 保持同一口径。未出现的维度不保存 0 分行。
 
 ---
 
@@ -840,6 +854,10 @@ confidence_score 0–100
 65–74  SELECTIVE
 <65    LOW
 ```
+
+`total_score` 以两位小数保存并用于精确排序；推荐等级先采用 `ROUND_HALF_UP`
+四舍五入为页面展示整数，再按上述整数边界分档。例如 `84.50` 展示为 `85`，对应
+`PRIORITY`，避免页面显示分数与推荐等级不一致。
 
 Eligibility：
 
