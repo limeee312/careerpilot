@@ -25,6 +25,11 @@ from app.models.matching import (
 from app.models.resume import ExperienceType, ResumeExperience, ResumeMaster
 from app.models.user import User
 from app.schemas.job_match import JobAnalysisStatus
+from app.services.job_detail import (
+    JobNotFoundError,
+    get_job_match_detail,
+    serialize_job_match_detail,
+)
 from app.services.match_analysis import (
     analyze_job_match_batch,
     serialize_job_match_batch,
@@ -252,6 +257,37 @@ async def test_reanalysis_appends_a_new_match_result() -> None:
                 await session.scalar(select(func.count()).select_from(JobMatchResult))
                 == 2
             )
+    finally:
+        async with AsyncSessionFactory() as session:
+            await session.execute(delete(User).where(User.email == email))
+            await session.commit()
+
+
+async def test_job_detail_is_owner_filtered_and_eagerly_loads_evidence() -> None:
+    email = f"job-detail-{uuid4().hex}@example.com"
+    try:
+        user_id, batch_id = await create_analysis_graph(email, ["详情测试公司"])
+        async with AsyncSessionFactory() as session:
+            analyzed = await analyze_job_match_batch(
+                session,
+                user_id,
+                batch_id,
+                StubAIClient(),
+            )
+            job_id = analyzed.jobs[0].id
+
+        async with AsyncSessionFactory() as session:
+            job, result = await get_job_match_detail(session, user_id, job_id)
+            data = serialize_job_match_detail(job, result)
+
+        assert data.company_name == "详情测试公司"
+        assert data.display_score == 75
+        assert data.requirement_assessments[0].evidence[0].source_type == "experience"
+        assert data.dimension_scores[0].dimension is MatchDimension.RESPONSIBILITY
+
+        async with AsyncSessionFactory() as session:
+            with pytest.raises(JobNotFoundError):
+                await get_job_match_detail(session, uuid4(), job_id)
     finally:
         async with AsyncSessionFactory() as session:
             await session.execute(delete(User).where(User.email == email))

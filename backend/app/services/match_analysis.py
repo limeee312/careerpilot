@@ -410,7 +410,9 @@ def _responsibility_score(result: JobMatchResult):
     )
 
 
-def _current_result(job: Job):
+def current_job_match_result(job: Job):
+    """Return only the match associated with the job's latest parse run."""
+
     latest_parse = _latest_by_created_at(job.parse_results)
     latest_match = _latest_by_created_at(job.match_results)
     if (
@@ -450,7 +452,7 @@ def _analysis_status(
 def serialize_job_match_batch(batch: JobMatchBatch) -> JobMatchBatchResultData:
     """Serialize current-run results with deterministic normal/blocked ordering."""
 
-    results_by_job = {job.id: _current_result(job) for job in batch.jobs}
+    results_by_job = {job.id: current_job_match_result(job) for job in batch.jobs}
     result_by_id = {
         str(result.id): result
         for result in results_by_job.values()
