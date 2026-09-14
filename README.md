@@ -6,7 +6,7 @@ MVP 0.1 聚焦一条可验证的核心闭环：用户维护真实简历母版，
 
 ## 当前状态
 
-项目处于 MVP 0.1 工程开发阶段。`CP-001` 至 `CP-019` 已实现，后续任务按 Backlog 顺序推进，每个任务独立提交并通过相应验收。
+项目处于 MVP 0.1 工程开发阶段。`CP-001` 至 `CP-019` 及 `CP-019A` 已实现，后续任务按 Backlog 顺序推进，每个任务独立提交并通过相应验收。
 
 ## 技术栈
 
@@ -116,6 +116,8 @@ GitHub Actions 会额外启动真实 PostgreSQL 服务，执行迁移并验证�
 - Matcher 已接入字段白名单式脱敏 Context Builder 和版本化 Prompt；服务层使用 Pydantic Structured Outputs，只在超时、5xx 或无效输出时重试一次，并保留模型、Prompt 版本、请求 ID 与 Token 用量。
 - Matcher 评分服务使用 `Decimal` 确定性计算 Evidence Cap、有效维度权重、总分、Eligibility、Confidence 与 Recommendation；缺失维度按 `N/A` 处理，推荐等级与页面整数分数使用同一四舍五入口径。
 - 职位排序将 `FAIL` 岗位移出正常可投序列；分差不超过 3 分时采用组首分数锚定，再比较职责匹配率和置信度，避免相邻分数链式扩大并列范围。
+- `POST /api/v1/job-match/batches/{id}/analyze` 串联 Parser、Matcher、后端评分与不可变结果持久化；单个岗位失败不回滚已成功结果，重新分析追加历史记录。
+- `GET /api/v1/job-match/{id}` 返回批次进度、当前轮岗位状态与确定性排序结果；所有权不匹配统一返回 `BATCH_NOT_FOUND`。
 
 ## 开发原则
 
