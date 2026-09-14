@@ -78,6 +78,7 @@ def _batch_query(*, batch_id: UUID, user_id: UUID):
             JobMatchBatch.id == batch_id,
             JobMatchBatch.user_id == user_id,
         )
+        .execution_options(populate_existing=True)
         .options(
             selectinload(JobMatchBatch.jobs).selectinload(Job.parse_results),
             selectinload(JobMatchBatch.jobs)
