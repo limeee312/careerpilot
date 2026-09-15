@@ -13,7 +13,8 @@ The API is available at <http://localhost:8000>, with OpenAPI documentation at <
 
 ## AI provider configuration
 
-Job Parser uses the OpenAI Responses API with strict Pydantic Structured Outputs.
+Job Parser, Matcher, and Resume Tailor use the OpenAI Responses API with strict
+Pydantic Structured Outputs.
 Set `OPENAI_API_KEY` and `OPENAI_MODEL` on the backend only; neither value is sent
 to the browser. `OPENAI_TIMEOUT_SECONDS` defaults to 30 seconds.
 
@@ -22,6 +23,14 @@ retry policy, so `job_parser_v1` makes at most two provider attempts: the origin
 request plus one retry for a timeout, provider 5xx response, or invalid structured
 output. It does not retry empty input, configuration errors, 4xx responses, or
 connection failures.
+
+`resume_tailor_v1` receives only the summary, experiences, projects, skills,
+parsed job, and persisted match guidance from the immutable match snapshots. It
+never receives identity/contact fields or education, and it may return only source
+IDs plus rewritten bullets and evidence references. The deterministic validator
+rejects unknown IDs, ungrounded quotes, invented numbers or JD tools, reordered
+skill sets, ownership escalation, team-result misattribution, and project-status
+escalation.
 
 Job parsing and matching history is stored in append-oriented records. Parser runs
 own atomic requirements; each match result owns gate checks, non-hard requirement
@@ -44,6 +53,12 @@ detail; `/api/v1/jobs/{job_id}/match` is an alias. Both routes filter by the
 authenticated owner and include only persisted requirements, gates, assessments,
 dimension scores, strengths, gaps, and resume evidence. Missing dimensions remain
 absent so the UI can display them as `N/A` rather than zero.
+
+`POST /api/v1/jobs/{job_id}/resume-tailor` generates an owner-filtered,
+user-reviewable draft from the current Match Result snapshots. It returns the
+source Resume Snapshot, structured draft, and model/prompt trace metadata without
+writing a Resume Version or modifying the Resume Master. Persistence remains a
+separate user-confirmed operation.
 
 ## Quality checks
 

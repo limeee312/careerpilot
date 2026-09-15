@@ -10,6 +10,7 @@ from app.schemas.resume import ResumeMasterData
 
 if TYPE_CHECKING:
     from app.ai.job_matcher.schemas import MatcherInput, ResumeEvidenceItem
+    from app.ai.resume_tailor.schemas import TailorInput
 
 
 def _render_fields(fields: list[tuple[str, object | None]]) -> str:
@@ -133,4 +134,70 @@ def build_match_context(
     return MatcherInput(
         parsed_job=parsed_job,
         resume_evidence=resume_evidence,
+    )
+
+
+def build_tailor_context(
+    *,
+    resume: ResumeMasterData | None,
+    parsed_job: JobParserOutput,
+    match_strengths: list[str],
+    match_gaps: list[str],
+) -> TailorInput:
+    """Build a PII-free, source-addressable Resume Tailor input."""
+
+    from app.ai.resume_tailor.schemas import (
+        SourceExperience,
+        SourceProject,
+        SourceSkill,
+        TailorInput,
+    )
+
+    if resume is None:
+        raise AIInputError("resume does not exist")
+    if not parsed_job.requirements:
+        raise AIInputError("parsed job contains no requirements")
+    if not (
+        resume.basic_info.summary
+        or resume.experiences
+        or resume.projects
+        or resume.skills
+    ):
+        raise AIInputError("resume contains no tailorable content")
+
+    return TailorInput(
+        resume_summary=resume.basic_info.summary,
+        experiences=[
+            SourceExperience(
+                source_id=str(item.id),
+                experience_type=item.experience_type.value,
+                organization=item.organization,
+                position=item.position,
+                start_date=item.start_date,
+                end_date="至今" if item.is_current else item.end_date,
+                description=item.description,
+                achievements=item.achievements,
+            )
+            for item in resume.experiences
+        ],
+        projects=[
+            SourceProject(
+                source_id=str(item.id),
+                name=item.name,
+                role=item.role,
+                description=item.description,
+                achievements=item.achievements,
+            )
+            for item in resume.projects
+        ],
+        skills=[
+            SourceSkill(
+                source_id=str(item.id),
+                skill_name=item.skill_name,
+            )
+            for item in resume.skills
+        ],
+        parsed_job=parsed_job,
+        match_strengths=match_strengths,
+        match_gaps=match_gaps,
     )
