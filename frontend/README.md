@@ -11,6 +11,11 @@ npm run dev
 
 Open <http://localhost:3000>.
 
+The protected application includes the resume master editor, manual job matching,
+evidence-rich job details, and the Resume Tailor comparison workspace. Resume
+Tailor drafts remain browser-only until Resume Version persistence is added in
+CP-024.
+
 ## Quality checks
 
 ```bash

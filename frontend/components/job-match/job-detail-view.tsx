@@ -486,19 +486,16 @@ function JobDetailContent({ detail }: { detail: JobMatchDetailData }) {
           <div>
             <h2 className="text-xl font-semibold">下一步行动</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
-              详情数据已经准备好。针对性简历和投递记录将在后续独立步骤接入，当前不会生成占位数据。
+              你可以基于当前匹配快照生成针对性简历草稿；投递记录将在后续独立步骤接入。
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <button
-              aria-disabled="true"
-              className="cursor-not-allowed rounded-xl bg-slate-700 px-5 py-3 text-sm font-semibold text-slate-300"
-              disabled
-              title="将在 CP-023 开放"
-              type="button"
+            <Link
+              className="rounded-xl bg-blue-500 px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-blue-400"
+              href={`/jobs/${detail.job_id}/resume-tailor`}
             >
               针对该职位优化简历
-            </button>
+            </Link>
             <button
               aria-disabled="true"
               className="cursor-not-allowed rounded-xl border border-slate-600 px-5 py-3 text-sm font-semibold text-slate-400"
