@@ -5,7 +5,11 @@ from uuid import UUID
 
 import pytest
 
-from app.ai.context_builder import build_match_context, build_resume_evidence
+from app.ai.context_builder import (
+    build_match_context,
+    build_resume_evidence,
+    build_tailor_context,
+)
 from app.ai.errors import AIInputError
 from app.ai.job_parser.schemas import JobParserOutput
 from app.models.resume import ExperienceType
@@ -179,3 +183,30 @@ def test_match_context_rejects_a_parsed_job_without_requirements() -> None:
             resume=resume_data(),
             parsed_job=JobParserOutput.model_validate(job),
         )
+
+
+def test_tailor_context_excludes_pii_and_education() -> None:
+    context = build_tailor_context(
+        resume=resume_data(),
+        parsed_job=parsed_job_output(),
+        match_strengths=["数据分析有直接证据"],
+        match_gaps=["SQL 尚无证据"],
+    )
+    serialized = context.model_dump_json()
+
+    for excluded in (
+        "应被移除的姓名",
+        "13800000000",
+        "private@example.com",
+        "应被移除的精确城市",
+        "华东大学",
+        "管理学",
+    ):
+        assert excluded not in serialized
+
+    assert context.experiences[0].source_id == str(EXPERIENCE_ID)
+    assert context.projects[0].source_id == str(PROJECT_ID)
+    assert context.skills[0].source_id == str(SKILL_ID)
+    assert context.experiences[0].end_date == "至今"
+    assert context.match_strengths == ["数据分析有直接证据"]
+    assert context.match_gaps == ["SQL 尚无证据"]

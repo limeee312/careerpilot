@@ -2125,3 +2125,29 @@ SDK 自带重试关闭，由 Skill Service 严格执行本文件第 51 节的策
 
 CP-015 不直接把解析结果写入数据库。持久化由包含 Job 状态流转与事务边界的
 后续编排层统一完成，避免 AI Provider 适配器承担业务状态职责。
+
+---
+
+# 61. MVP 0.1 Resume Tailor 实现约定
+
+`resume_tailor_v1` 使用当前 Match Result 中冻结的 Resume Snapshot、Parsed Job、
+Strengths 与 Gaps 构建输入。Context Builder 只发送 summary、experiences、projects
+与 skills，不发送姓名、电话、邮箱、城市、求职状态或 Education。
+
+AI 输出先经过 Pydantic Contract，再由 Backend 确定性检查：
+
+```text
+source_id 白名单与去重
+include / order / bullets 一致性
+Skill source_id 完整排列
+Evidence Quote 原文定位
+数字与 JD Tool 来源
+参与 / 协助不得升级为主导
+团队指标不得改写为个人成果
+待评审 / 原型 / 试运行不得改写为已上线
+Improvement Suggestion 必须对应真实 Requirement
+```
+
+`POST /api/v1/jobs/{job_id}/resume-tailor` 只生成并返回 Draft 与追踪信息，不写入
+数据库，也不修改 Resume Master。Resume Version 的用户确认、编辑与保存由
+CP-023 和 CP-024 承接。

@@ -11,6 +11,7 @@ from app.ai.client import StructuredAIResponse
 from app.ai.errors import AIProviderError
 from app.ai.job_matcher.schemas import MatcherOutput
 from app.ai.job_parser.schemas import JobParserOutput
+from app.ai.resume_tailor.schemas import ResumeTailorOutput
 from app.database import AsyncSessionFactory
 from app.domain.matching import MatchDimension, RequirementType
 from app.models.job import BatchStatus, Job, JobMatchBatch
@@ -34,6 +35,7 @@ from app.services.match_analysis import (
     analyze_job_match_batch,
     serialize_job_match_batch,
 )
+from app.services.resume_tailor import generate_resume_tailor_draft
 
 pytestmark = [
     pytest.mark.anyio,
@@ -116,6 +118,37 @@ class StubAIClient:
                     "strengths": ["用户行为分析有直接证据"],
                     "gaps": [],
                     "overall_reasoning": "核心职责存在可定位的直接证据。",
+                }
+            )
+        elif response_model is ResumeTailorOutput:
+            experience = input_data.experiences[0]
+            output = ResumeTailorOutput.model_validate(
+                {
+                    "professional_summary": "具备用户行为分析与运营优化实践。",
+                    "experiences": [
+                        {
+                            "source_id": experience.source_id,
+                            "include": True,
+                            "order": 1,
+                            "bullets": [
+                                {
+                                    "text": "分析用户行为数据并推动运营优化。",
+                                    "evidence_refs": [
+                                        {
+                                            "source_field": "description",
+                                            "source_quote": (
+                                                "分析用户行为数据并推动运营优化"
+                                            ),
+                                        }
+                                    ],
+                                }
+                            ],
+                        }
+                    ],
+                    "projects": [],
+                    "skill_order": [],
+                    "improvement_suggestions": [],
+                    "warnings": [],
                 }
             )
         else:  # pragma: no cover - protects the fake's test contract.
@@ -288,6 +321,46 @@ async def test_job_detail_is_owner_filtered_and_eagerly_loads_evidence() -> None
         async with AsyncSessionFactory() as session:
             with pytest.raises(JobNotFoundError):
                 await get_job_match_detail(session, uuid4(), job_id)
+    finally:
+        async with AsyncSessionFactory() as session:
+            await session.execute(delete(User).where(User.email == email))
+            await session.commit()
+
+
+async def test_resume_tailor_returns_a_draft_without_mutating_source_rows() -> None:
+    email = f"resume-tailor-{uuid4().hex}@example.com"
+    try:
+        user_id, batch_id = await create_analysis_graph(email, ["简历优化公司"])
+        client = StubAIClient()
+        async with AsyncSessionFactory() as session:
+            analyzed = await analyze_job_match_batch(
+                session,
+                user_id,
+                batch_id,
+                client,
+            )
+            job_id = analyzed.jobs[0].id
+            result_count_before = await session.scalar(
+                select(func.count()).select_from(JobMatchResult)
+            )
+
+            generated = await generate_resume_tailor_draft(
+                session,
+                user_id,
+                job_id,
+                client,
+            )
+            result_count_after = await session.scalar(
+                select(func.count()).select_from(JobMatchResult)
+            )
+
+        assert generated.job.id == job_id
+        assert generated.tailor_result.prompt_version == "resume_tailor_v1"
+        assert generated.tailor_result.output.experiences[0].bullets[0].text == (
+            "分析用户行为数据并推动运营优化。"
+        )
+        assert result_count_after == result_count_before
+        assert client.calls == 3
     finally:
         async with AsyncSessionFactory() as session:
             await session.execute(delete(User).where(User.email == email))
