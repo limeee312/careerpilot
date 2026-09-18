@@ -1,5 +1,12 @@
 """SQLAlchemy models exposed to Alembic autogeneration."""
 
+from app.models.application import (
+    Application,
+    ApplicationEvent,
+    ApplicationEventOutcome,
+    ApplicationStage,
+    ApplicationStatus,
+)
 from app.models.base import Base, CreatedAtMixin
 from app.models.job import BatchStatus, Job, JobMatchBatch
 from app.models.matching import (
@@ -29,6 +36,11 @@ from app.models.user import User
 
 __all__ = [
     "Base",
+    "Application",
+    "ApplicationEvent",
+    "ApplicationEventOutcome",
+    "ApplicationStage",
+    "ApplicationStatus",
     "BatchStatus",
     "CreatedAtMixin",
     "AIStatus",
