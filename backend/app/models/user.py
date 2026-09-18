@@ -8,6 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 from app.models.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
 
 if TYPE_CHECKING:
+    from app.models.application import Application
     from app.models.job import JobMatchBatch
     from app.models.resume import ResumeMaster
 
@@ -31,6 +32,10 @@ class User(UUIDPrimaryKeyMixin, TimestampMixin, Base):
         uselist=False,
     )
     job_match_batches: Mapped[list["JobMatchBatch"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    applications: Mapped[list["Application"]] = relationship(
         back_populates="user",
         cascade="all, delete-orphan",
     )

@@ -4178,3 +4178,38 @@ GET /api/v1/resume/versions/{version_id}
 
 两者均按 `user_id` 隔离。简历库同时读取 Resume Master 与已保存 Resume Version，
 按版本创建时间倒序展示；保存成功后页面明确提示已创建版本及其名称。
+
+---
+
+# 一百一十四、MVP 0.1 Application models/API 实现约定
+
+`applications` 同时保存可空的 `job_id`、`resume_version_id` 与不可空的公司、岗位
+快照。两个来源关联都先按 `current_user.id` 校验；关联记录删除时外键使用
+`SET NULL`，投递历史本身及 `company_name`、`job_title`、`job_url` 不被删除。
+
+创建接口：
+
+```text
+POST /api/v1/applications
+```
+
+必须在同一事务中创建 `Application` 与首个 `APPLICATION` 事件，初始状态固定为
+`current_stage = APPLICATION`、`process_status = ACTIVE`。列表支持
+`process_status` 查询参数，详情返回按 `occurred_at + created_at` 排序的完整 Timeline。
+
+事件接口：
+
+```text
+POST /api/v1/applications/{application_id}/events
+GET  /api/v1/applications/{application_id}/events
+PUT  /api/v1/application-events/{event_id}
+DELETE /api/v1/application-events/{event_id}
+```
+
+新增、修改与删除事件后均根据时间线上最新事件重新计算 `current_stage` 与
+`current_round`。`INTERVIEW` 必须提供正整数 Round；`OTHER` 必须提供自定义事件名。
+流程状态与阶段保持两个维度，终止流程时必须显式提交当前阶段，面试阶段同时提交
+Round。
+
+所有投递和事件查询均通过 Application 的 `user_id` 过滤。不存在与跨用户访问使用
+同一 404 契约，避免泄露资源是否存在。

@@ -66,6 +66,21 @@ the frozen Resume Snapshot before creating a `SAVED` version. `GET
 /api/v1/resume/versions` and `GET /api/v1/resume/versions/{version_id}` return only
 the authenticated user's saved versions.
 
+Application tracking uses separate process and stage dimensions. Creating an
+application at `POST /api/v1/applications` atomically creates its initial
+`APPLICATION` timeline event. The collection supports listing with an optional
+`process_status` filter, while detail, update, delete, and status endpoints use
+`/api/v1/applications/{application_id}`. Timeline events are available at
+`/api/v1/applications/{application_id}/events` and editable or removable through
+`/api/v1/application-events/{event_id}`. Event writes recompute the current stage;
+terminal status updates require an explicit stage and interview round when
+applicable.
+
+Optional Job and Resume Version links are owner-validated. Database `SET NULL`
+foreign keys ensure source deletion never removes the application snapshot, and
+all application or event lookups outside the authenticated user's scope return a
+404 response.
+
 ## Quality checks
 
 ```bash
