@@ -4130,7 +4130,7 @@ POST /api/v1/jobs/{job_id}/resume-tailor
 
 右侧允许用户编辑职业概述与 Bullet，并调整经历、项目和技能顺序。公司、职位、项目名称、教育信息和日期只从左侧 Snapshot 展示，不交给 AI 修改。每条 AI Bullet 可以展开查看原始证据引用。
 
-生成和重新生成均不写数据库。重新生成失败时继续保留旧草稿和人工修改；离开浏览器页面前提示草稿尚未保存。`CP-024` 完成前，“保存为岗位版简历”保持禁用，并明确说明尚未创建 Resume Version。
+生成和重新生成均不写数据库。重新生成失败时继续保留旧草稿和人工修改；离开浏览器页面前提示草稿尚未保存。“保存为岗位版简历”只在草稿存在时可用，保存成功后才取消未保存离开提示。
 
 页面必须覆盖：
 
@@ -4144,3 +4144,37 @@ AI 输出未通过真实性校验
 空经历 / 空项目 / 空技能 / 空建议
 重新生成中及失败后草稿保留
 ```
+
+---
+
+# 一百一十三、MVP 0.1 Resume Version 存储实现约定
+
+只有用户在 Resume Tailor 对照页明确点击“保存为岗位版简历”时，前端才调用：
+
+```text
+POST /api/v1/resume/versions
+```
+
+浏览器内 AI 输出仍是未持久化 Draft；成功写入数据库的记录直接标记为 `SAVED`，
+不在生成阶段预先创建数据库 Draft。每次保存创建一个独立版本，不覆盖 Resume
+Master 或旧 Resume Version。
+
+后端必须根据 `match_result_id + current_user.id` 重新加载冻结的 Resume Snapshot 与
+Job Snapshot，不能信任客户端提交的公司、职位、学校、学历或日期。人工编辑后的
+Draft 必须再次通过来源 ID、Evidence Quote、Skill、数字、负责程度、团队成果归属与
+项目状态校验；校验失败不写数据库。
+
+`content` 由 Backend 组装，结构包括 summary、education、experiences、projects 与
+skills；公司、职位、日期、教育和技能信息来自冻结快照，可编辑 Summary 与 Bullet
+来自已校验 Draft。记录同时保存 source_resume_snapshot、source_job_snapshot、
+match_result_id、prompt_version 与 model 供追溯。
+
+读取接口：
+
+```text
+GET /api/v1/resume/versions
+GET /api/v1/resume/versions/{version_id}
+```
+
+两者均按 `user_id` 隔离。简历库同时读取 Resume Master 与已保存 Resume Version，
+按版本创建时间倒序展示；保存成功后页面明确提示已创建版本及其名称。

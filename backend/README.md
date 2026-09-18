@@ -57,8 +57,14 @@ absent so the UI can display them as `N/A` rather than zero.
 `POST /api/v1/jobs/{job_id}/resume-tailor` generates an owner-filtered,
 user-reviewable draft from the current Match Result snapshots. It returns the
 source Resume Snapshot, structured draft, and model/prompt trace metadata without
-writing a Resume Version or modifying the Resume Master. Persistence remains a
-separate user-confirmed operation.
+writing a Resume Version or modifying the Resume Master.
+
+`POST /api/v1/resume/versions` is the separate user-confirmed save boundary. The
+backend reloads the owner-scoped Match Result, revalidates the edited draft, and
+assembles immutable organization, position, date, education, and skill fields from
+the frozen Resume Snapshot before creating a `SAVED` version. `GET
+/api/v1/resume/versions` and `GET /api/v1/resume/versions/{version_id}` return only
+the authenticated user's saved versions.
 
 ## Quality checks
 

@@ -22,6 +22,12 @@ import {
   type ResumeTailorOutput,
   type TailoredSourceItem,
 } from "@/lib/resume-tailor";
+import {
+  buildResumeVersionPayload,
+  type ResumeVersionData,
+  type ResumeVersionEnvelope,
+  validateTailorDraftForSave,
+} from "@/lib/resume-version";
 
 type RequestIssue = {
   code: string;
@@ -75,10 +81,22 @@ export function ResumeTailorView({ jobId }: { jobId: string }) {
     null,
   );
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveIssue, setSaveIssue] = useState<RequestIssue | null>(null);
+  const [savedVersion, setSavedVersion] = useState<ResumeVersionData | null>(
+    null,
+  );
+  const [savedBaseline, setSavedBaseline] = useState<string | null>(null);
 
   const isEdited = useMemo(
     () => draft !== null && baseline !== null && JSON.stringify(draft) !== baseline,
     [baseline, draft],
+  );
+  const hasUnsavedDraft = useMemo(
+    () =>
+      draft !== null &&
+      (savedBaseline === null || JSON.stringify(draft) !== savedBaseline),
+    [draft, savedBaseline],
   );
 
   useEffect(() => {
@@ -115,7 +133,7 @@ export function ResumeTailorView({ jobId }: { jobId: string }) {
 
   useEffect(() => {
     function warnBeforeLeave(event: BeforeUnloadEvent) {
-      if (!draft) {
+      if (!hasUnsavedDraft) {
         return;
       }
       event.preventDefault();
@@ -124,7 +142,7 @@ export function ResumeTailorView({ jobId }: { jobId: string }) {
 
     window.addEventListener("beforeunload", warnBeforeLeave);
     return () => window.removeEventListener("beforeunload", warnBeforeLeave);
-  }, [draft]);
+  }, [hasUnsavedDraft]);
 
   function retryContext() {
     setIsContextLoading(true);
@@ -153,6 +171,9 @@ export function ResumeTailorView({ jobId }: { jobId: string }) {
       setTailorData(response.data);
       setDraft(nextDraft);
       setBaseline(JSON.stringify(nextDraft));
+      setSavedBaseline(null);
+      setSavedVersion(null);
+      setSaveIssue(null);
     } catch (error: unknown) {
       const issue = toRequestIssue(
         error,
@@ -231,6 +252,43 @@ export function ResumeTailorView({ jobId }: { jobId: string }) {
     );
   }
 
+  async function saveDraft() {
+    if (!draft || !tailorData) {
+      return;
+    }
+    const localIssue = validateTailorDraftForSave(draft);
+    if (localIssue) {
+      setSaveIssue({ code: "INVALID_DRAFT", message: localIssue, status: 0 });
+      return;
+    }
+
+    setSaveIssue(null);
+    setIsSaving(true);
+    const payload = buildResumeVersionPayload(tailorData, draft);
+    try {
+      const response = await apiRequest<ResumeVersionEnvelope>(
+        "/resume/versions",
+        { method: "POST", body: JSON.stringify(payload) },
+      );
+      setDraft(payload.draft);
+      setSavedBaseline(JSON.stringify(payload.draft));
+      setSavedVersion(response.data);
+    } catch (error: unknown) {
+      const issue = toRequestIssue(
+        error,
+        "岗位版简历保存失败，请稍后重试。",
+      );
+      if (issue.status === 401) {
+        router.replace("/login");
+        router.refresh();
+        return;
+      }
+      setSaveIssue(issue);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
   if (isContextLoading) {
     return <TailorLoadingState message="正在加载目标职位与匹配结果…" />;
   }
@@ -293,11 +351,16 @@ export function ResumeTailorView({ jobId }: { jobId: string }) {
             draft={draft}
             isEdited={isEdited}
             isGenerating={isGenerating}
+            isSaved={!hasUnsavedDraft && savedVersion !== null}
+            isSaving={isSaving}
             onMoveSectionItem={moveSectionItem}
             onMoveSkill={moveSkillItem}
             onRegenerate={generateDraft}
+            onSave={saveDraft}
             onUpdateBullet={updateBullet}
             onUpdateSummary={updateSummary}
+            saveIssue={saveIssue}
+            savedVersion={savedVersion}
           />
         </>
       )}
@@ -453,16 +516,23 @@ function TailorComparison({
   draft,
   isEdited,
   isGenerating,
+  isSaved,
+  isSaving,
   onMoveSectionItem,
   onMoveSkill,
   onRegenerate,
+  onSave,
   onUpdateBullet,
   onUpdateSummary,
+  saveIssue,
+  savedVersion,
 }: {
   data: ResumeTailorDraftData;
   draft: ResumeTailorOutput;
   isEdited: boolean;
   isGenerating: boolean;
+  isSaved: boolean;
+  isSaving: boolean;
   onMoveSectionItem: (
     section: TailoredSection,
     sourceId: string,
@@ -470,6 +540,7 @@ function TailorComparison({
   ) => void;
   onMoveSkill: (sourceId: string, direction: -1 | 1) => void;
   onRegenerate: () => void;
+  onSave: () => void;
   onUpdateBullet: (
     section: TailoredSection,
     sourceId: string,
@@ -477,6 +548,8 @@ function TailorComparison({
     value: string,
   ) => void;
   onUpdateSummary: (value: string) => void;
+  saveIssue: RequestIssue | null;
+  savedVersion: ResumeVersionData | null;
 }) {
   const source = data.source_resume_snapshot;
   const includedExperiences = getIncludedTailoredItems(draft.experiences);
@@ -499,9 +572,33 @@ function TailorComparison({
           </p>
         </div>
         <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-blue-700">
-          {isEdited ? "已人工修改 · 尚未保存" : "AI 草稿 · 尚未保存"}
+          {isSaved
+            ? "已保存为岗位版"
+            : isEdited
+              ? "已人工修改 · 尚未保存"
+              : "AI 草稿 · 尚未保存"}
         </span>
       </div>
+
+      {savedVersion && isSaved ? (
+        <div className="mt-5 flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-800 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            已保存“{savedVersion.name}”，母版和匹配快照均未被修改。
+          </p>
+          <Link className="font-semibold hover:text-emerald-950" href="/resumes">
+            前往简历库 →
+          </Link>
+        </div>
+      ) : null}
+
+      {saveIssue ? (
+        <div
+          className="mt-5 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700"
+          role="alert"
+        >
+          {saveIssue.message}
+        </div>
+      ) : null}
 
       <div className="mt-6 grid gap-6 xl:grid-cols-2" aria-label="简历优化前后对照">
         <ResumePanel eyebrow="Source snapshot" title="原简历">
@@ -649,26 +746,29 @@ function TailorComparison({
           <div>
             <p className="font-semibold">确认后再保存岗位版</p>
             <p className="mt-1 text-xs leading-5 text-slate-400">
-              当前草稿仅存在于本页面；CP-024 将接入版本保存并在保存前再次校验。
+              保存时后端会再次核对来源 ID、证据、技能和数字，并从原快照组装不可变字段。
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
             <button
               className="rounded-xl border border-slate-600 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:bg-slate-800 disabled:cursor-wait disabled:text-slate-500"
-              disabled={isGenerating}
+              disabled={isGenerating || isSaving}
               onClick={onRegenerate}
               type="button"
             >
               {isGenerating ? "重新生成中…" : "重新生成"}
             </button>
             <button
-              aria-disabled="true"
-              className="cursor-not-allowed rounded-xl bg-slate-700 px-5 py-3 text-sm font-semibold text-slate-300"
-              disabled
-              title="将在 CP-024 接入 Resume Version 保存"
+              className="rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400 disabled:cursor-wait disabled:bg-blue-800 disabled:text-blue-200"
+              disabled={isGenerating || isSaving || isSaved}
+              onClick={onSave}
               type="button"
             >
-              保存为岗位版简历
+              {isSaving
+                ? "正在保存并校验…"
+                : isSaved
+                  ? "已保存为岗位版简历"
+                  : "保存为岗位版简历"}
             </button>
           </div>
         </div>
