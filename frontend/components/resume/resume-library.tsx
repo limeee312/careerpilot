@@ -12,10 +12,15 @@ import {
   type ResumeMasterEnvelope,
   resumeDataToDraft,
 } from "@/lib/resume";
+import type {
+  ResumeVersionListEnvelope,
+  ResumeVersionListItem,
+} from "@/lib/resume-version";
 
 export function ResumeLibrary() {
   const router = useRouter();
   const [resume, setResume] = useState<ResumeMasterData | null>(null);
+  const [versions, setVersions] = useState<ResumeVersionListItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loadAttempt, setLoadAttempt] = useState(0);
@@ -23,10 +28,14 @@ export function ResumeLibrary() {
   useEffect(() => {
     let cancelled = false;
 
-    void apiRequest<ResumeMasterEnvelope>("/resume/master")
-      .then((response) => {
+    void Promise.all([
+      apiRequest<ResumeMasterEnvelope>("/resume/master"),
+      apiRequest<ResumeVersionListEnvelope>("/resume/versions"),
+    ])
+      .then(([masterResponse, versionResponse]) => {
         if (!cancelled) {
-          setResume(response.data);
+          setResume(masterResponse.data);
+          setVersions(versionResponse.data);
         }
       })
       .catch((requestError: unknown) => {
@@ -248,15 +257,54 @@ export function ResumeLibrary() {
             </h2>
           </div>
           <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">
-            0 份
+            {versions.length} 份
           </span>
         </div>
-        <div className="rounded-3xl border border-slate-200 bg-white px-6 py-10 text-center shadow-sm">
-          <h3 className="font-semibold text-slate-900">还没有针对性简历</h3>
-          <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-500">
-            完成职位匹配并主动保存岗位版简历后，它会出现在这里。每个版本独立保存，不会覆盖简历母版。
-          </p>
-        </div>
+        {versions.length > 0 ? (
+          <div className="grid gap-4 lg:grid-cols-2">
+            {versions.map((version) => (
+              <article
+                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+                key={version.id}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">
+                      Saved version
+                    </p>
+                    <h3 className="mt-2 truncate text-xl font-semibold text-slate-950">
+                      {version.name}
+                    </h3>
+                    <p className="mt-2 text-sm text-slate-500">
+                      {version.company_name} · {version.job_title}
+                    </p>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                    已保存
+                  </span>
+                </div>
+                <div className="mt-5 flex items-center justify-between gap-4 border-t border-slate-100 pt-4">
+                  <p className="text-xs text-slate-500">
+                    创建：{formatResumeUpdatedAt(version.created_at)}
+                  </p>
+                  <Link
+                    className="text-sm font-semibold text-blue-700 hover:text-blue-800"
+                    href={`/jobs/${version.job_id}/resume-tailor`}
+                  >
+                    查看来源职位 →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-slate-200 bg-white px-6 py-10 text-center shadow-sm">
+            <h3 className="font-semibold text-slate-900">还没有针对性简历</h3>
+            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-500">
+              完成职位匹配并主动保存岗位版简历后，它会出现在这里。每个版本独立保存，不会覆盖简历母版。
+            </p>
+          </div>
+        )}
       </section>
     </div>
   );

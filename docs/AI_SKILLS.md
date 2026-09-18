@@ -2149,5 +2149,6 @@ Improvement Suggestion 必须对应真实 Requirement
 ```
 
 `POST /api/v1/jobs/{job_id}/resume-tailor` 只生成并返回 Draft 与追踪信息，不写入
-数据库，也不修改 Resume Master。Resume Version 的用户确认、编辑与保存由
-CP-023 和 CP-024 承接。
+数据库，也不修改 Resume Master。用户在 CP-023 对照页完成审阅和编辑后，CP-024
+通过独立的 `POST /api/v1/resume/versions` 保存边界重新执行相同确定性校验，再由
+Backend 从冻结 Resume Snapshot 组装不可变字段并创建 `SAVED` Resume Version。

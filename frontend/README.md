@@ -13,8 +13,9 @@ Open <http://localhost:3000>.
 
 The protected application includes the resume master editor, manual job matching,
 evidence-rich job details, and the Resume Tailor comparison workspace. Resume
-Tailor drafts remain browser-only until Resume Version persistence is added in
-CP-024.
+Tailor drafts remain browser-only until the user explicitly saves them. The save
+action revalidates the draft through the backend, and saved job-targeted versions
+appear in the Resume Library without replacing the Resume Master.
 
 ## Quality checks
 

@@ -24,6 +24,7 @@ from app.models.resume import (
     ResumeProject,
     ResumeSkill,
 )
+from app.models.resume_version import ResumeVersion, ResumeVersionStatus
 from app.models.user import User
 
 __all__ = [
@@ -50,5 +51,7 @@ __all__ = [
     "ResumeMaster",
     "ResumeProject",
     "ResumeSkill",
+    "ResumeVersion",
+    "ResumeVersionStatus",
     "User",
 ]

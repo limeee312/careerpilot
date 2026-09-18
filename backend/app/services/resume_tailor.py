@@ -65,6 +65,20 @@ def _match_strengths(result: JobMatchResult) -> list[str]:
         raise ResumeTailorSourceInvalidError from error
 
 
+def resolve_resume_tailor_source(
+    result: JobMatchResult,
+) -> tuple[ResumeMasterData, JobParserOutput, list[str], list[str]]:
+    """Validate and expose the frozen inputs shared by generation and saving."""
+
+    source_resume = _validate_snapshot(ResumeMasterData, result.resume_snapshot)
+    return (
+        source_resume,
+        _parsed_job_from_result(result),
+        _match_strengths(result),
+        _match_gaps(result),
+    )
+
+
 async def generate_resume_tailor_draft(
     session: AsyncSession,
     user_id: UUID,
@@ -74,16 +88,14 @@ async def generate_resume_tailor_draft(
     """Tailor the current match snapshot without writing any database row."""
 
     job, match_result = await get_job_match_detail(session, user_id, job_id)
-    source_resume = _validate_snapshot(
-        ResumeMasterData,
-        match_result.resume_snapshot,
+    source_resume, parsed_job, strengths, gaps = resolve_resume_tailor_source(
+        match_result
     )
-    parsed_job = _parsed_job_from_result(match_result)
     tailor_result = await tailor_resume(
         source_resume,
         parsed_job,
-        match_strengths=_match_strengths(match_result),
-        match_gaps=_match_gaps(match_result),
+        match_strengths=strengths,
+        match_gaps=gaps,
         ai_client=ai_client,
     )
     return GeneratedResumeTailorDraft(
