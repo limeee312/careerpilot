@@ -81,6 +81,11 @@ foreign keys ensure source deletion never removes the application snapshot, and
 all application or event lookups outside the authenticated user's scope return a
 404 response.
 
+`GET /api/v1/dashboard` provides one user-scoped aggregate for the MVP home page.
+It groups Applications by lifecycle status and returns the five most recent
+applications ordered by application time. The frontend derives “流程终止” from
+rejected plus withdrawn while keeping both source counts in the API response.
+
 ## Quality checks
 
 ```bash
