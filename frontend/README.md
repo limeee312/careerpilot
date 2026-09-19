@@ -18,7 +18,9 @@ them. The save action revalidates the draft through the backend, and saved
 job-targeted versions appear in the Resume Library without replacing the Resume
 Master. `/applications` provides status filters and responsive list views, while
 `/applications/[applicationId]` supports flexible timeline events and lifecycle
-status updates.
+status updates. `/dashboard` aggregates total, active, terminated, and Offer counts
+and links the five most recent applications back to their timelines. Funnel and
+reminder modules remain outside MVP 0.1.
 
 ## Quality checks
 
