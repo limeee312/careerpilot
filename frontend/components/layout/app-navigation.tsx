@@ -7,9 +7,12 @@ const navigation = [
   { activePrefix: "/dashboard", href: "/dashboard", label: "首页" },
   { activePrefix: "/resumes", href: "/resumes", label: "我的简历" },
   { activePrefix: "/job-match", href: "/job-match/new", label: "职位匹配" },
+  {
+    activePrefix: "/applications",
+    href: "/applications",
+    label: "投递管理",
+  },
 ] as const;
-
-const upcomingNavigation = ["投递管理"];
 
 export function AppNavigation() {
   const pathname = usePathname();
@@ -36,15 +39,6 @@ export function AppNavigation() {
           </Link>
         );
       })}
-      {upcomingNavigation.map((item) => (
-        <span
-          className="rounded-lg px-3 py-2 text-sm text-slate-400"
-          key={item}
-          title="将在后续开发步骤中开放"
-        >
-          {item}
-        </span>
-      ))}
     </nav>
   );
 }
