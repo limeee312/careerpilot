@@ -2,12 +2,19 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  buildApplicationEventPayload,
+  buildApplicationStatusPayload,
   filterApplications,
   formatApplicationDate,
+  formatApplicationTime,
   formatApplicationUpdatedAt,
   getApplicationFilterCounts,
+  getApplicationEventLabel,
+  getApplicationOutcomeLabel,
+  getApplicationProgressLabel,
   getApplicationStageLabel,
   getApplicationStatusLabel,
+  toDateTimeLocalValue,
 } from "./application.ts";
 
 function application(id, processStatus) {
@@ -64,6 +71,81 @@ test("application filters and counts use the four product statuses", () => {
 test("application date formatters are stable in the product timezone", () => {
   assert.equal(formatApplicationDate("2026-09-08T16:30:00Z"), "2026-09-09");
   assert.equal(formatApplicationUpdatedAt("2026-09-08T16:30:00Z"), "09-09 00:30");
+  assert.equal(formatApplicationTime("2026-09-08T16:30:00Z"), "00:30");
   assert.equal(formatApplicationDate("not-a-date"), "日期未知");
   assert.equal(formatApplicationUpdatedAt("not-a-date"), "时间未知");
+  assert.equal(toDateTimeLocalValue("not-a-date"), "");
+});
+
+test("timeline labels preserve custom nodes, outcomes, and terminal context", () => {
+  const event = {
+    id: "event-1",
+    application_id: "application-1",
+    event_type: "OTHER",
+    custom_event_name: "HR 沟通",
+    round_no: null,
+    occurred_at: "2026-09-18T04:00:00Z",
+    outcome: "COMPLETED",
+    note: null,
+    created_at: "2026-09-18T04:00:00Z",
+    updated_at: "2026-09-18T04:00:00Z",
+  };
+
+  assert.equal(getApplicationEventLabel(event), "HR 沟通");
+  assert.equal(getApplicationOutcomeLabel("COMPLETED"), "已完成");
+  assert.equal(
+    getApplicationProgressLabel({
+      current_stage: "INTERVIEW",
+      current_round: 1,
+      process_status: "REJECTED",
+    }),
+    "一面淘汰",
+  );
+});
+
+test("event payload enforces conditional round and custom name fields", () => {
+  const missingRound = buildApplicationEventPayload({
+    event_type: "INTERVIEW",
+    custom_event_name: "",
+    round_no: "",
+    occurred_at: "2026-09-18T14:00",
+    outcome: "PENDING",
+    note: "",
+  });
+  assert.match(missingRound.error, /轮次/);
+
+  const custom = buildApplicationEventPayload({
+    event_type: "OTHER",
+    custom_event_name: "  案例分析  ",
+    round_no: "9",
+    occurred_at: "2026-09-18T14:00",
+    outcome: "COMPLETED",
+    note: "  已提交  ",
+  });
+  assert.equal(custom.error, null);
+  assert.equal(custom.data.custom_event_name, "案例分析");
+  assert.equal(custom.data.round_no, null);
+  assert.equal(custom.data.note, "已提交");
+});
+
+test("terminal status payload requires interview round and active stays minimal", () => {
+  assert.deepEqual(
+    buildApplicationStatusPayload("ACTIVE", "INTERVIEW", ""),
+    { data: { process_status: "ACTIVE" }, error: null },
+  );
+  assert.match(
+    buildApplicationStatusPayload("REJECTED", "INTERVIEW", "").error,
+    /轮次/,
+  );
+  assert.deepEqual(
+    buildApplicationStatusPayload("REJECTED", "INTERVIEW", "2"),
+    {
+      data: {
+        process_status: "REJECTED",
+        current_stage: "INTERVIEW",
+        current_round: 2,
+      },
+      error: null,
+    },
+  );
 });

@@ -12,14 +12,18 @@ npm run dev
 Open <http://localhost:3000>.
 
 The protected application includes the resume master editor, manual job matching,
-evidence-rich job details, and the Resume Tailor comparison workspace. Resume
-Tailor drafts remain browser-only until the user explicitly saves them. The save
-action revalidates the draft through the backend, and saved job-targeted versions
-appear in the Resume Library without replacing the Resume Master.
+evidence-rich job details, the Resume Tailor comparison workspace, and application
+tracking. Resume Tailor drafts remain browser-only until the user explicitly saves
+them. The save action revalidates the draft through the backend, and saved
+job-targeted versions appear in the Resume Library without replacing the Resume
+Master. `/applications` provides status filters and responsive list views, while
+`/applications/[applicationId]` supports flexible timeline events and lifecycle
+status updates.
 
 ## Quality checks
 
 ```bash
 npm run lint
+npm test
 npm run build
 ```

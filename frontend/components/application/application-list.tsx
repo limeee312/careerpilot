@@ -86,7 +86,10 @@ function ApplicationTable({
           {applications.map((application) => (
             <tr className="transition hover:bg-slate-50/70" key={application.id}>
               <td className="px-6 py-5">
-                <div className="flex min-w-0 items-center gap-3">
+                <Link
+                  className="flex min-w-0 items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  href={`/applications/${application.id}`}
+                >
                   <span
                     aria-hidden="true"
                     className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950 text-sm font-semibold text-white"
@@ -101,7 +104,7 @@ function ApplicationTable({
                       {application.job_title}
                     </p>
                   </div>
-                </div>
+                </Link>
               </td>
               <td className="px-4 py-5">
                 <StageLabel application={application} />
@@ -155,6 +158,14 @@ function ApplicationCards({
           <p className="mt-3 text-right text-xs text-slate-400">
             最后更新 {formatApplicationUpdatedAt(application.updated_at)}
           </p>
+          <div className="mt-4 border-t border-slate-100 pt-4 text-right">
+            <Link
+              className="text-sm font-semibold text-blue-700 hover:text-blue-800"
+              href={`/applications/${application.id}`}
+            >
+              查看时间线 →
+            </Link>
+          </div>
         </article>
       ))}
     </div>
