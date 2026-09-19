@@ -14,7 +14,11 @@ from app.dependencies import get_current_user
 from app.main import app
 from app.models.resume_version import ResumeVersion, ResumeVersionStatus
 from app.models.user import User
-from app.services.resume_version import ResumeVersionSourceNotFoundError
+from app.services.resume_version import (
+    ResumeVersionInvalidDraftError,
+    ResumeVersionNotFoundError,
+    ResumeVersionSourceNotFoundError,
+)
 from tests.test_resume_tailor import tailor_result
 from tests.test_resume_version import source_match_result
 
@@ -169,3 +173,73 @@ async def test_list_endpoint_returns_only_service_scoped_versions(
     assert response.json()["data"][0]["name"] == "目标公司 - 产品运营"
     loader.assert_awaited_once()
     assert loader.await_args.args[1] == user.id
+
+
+@pytest.mark.anyio
+async def test_detail_endpoint_returns_owned_saved_version(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user = authenticated_user()
+    version = saved_version(user.id)
+    loader = AsyncMock(return_value=version)
+    monkeypatch.setattr(resume_routes, "get_resume_version", loader)
+    app.dependency_overrides[get_current_user] = lambda: user
+    app.dependency_overrides[get_db_session] = lambda: AsyncMock(spec=AsyncSession)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.get(f"/api/v1/resume/versions/{version.id}")
+
+    assert response.status_code == 200
+    assert response.json()["data"]["id"] == str(version.id)
+    assert response.json()["data"]["content"]["summary"]
+    loader.assert_awaited_once()
+    assert loader.await_args.args[1] == user.id
+
+
+@pytest.mark.anyio
+async def test_detail_endpoint_hides_missing_or_foreign_version(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user = authenticated_user()
+    monkeypatch.setattr(
+        resume_routes,
+        "get_resume_version",
+        AsyncMock(side_effect=ResumeVersionNotFoundError),
+    )
+    app.dependency_overrides[get_current_user] = lambda: user
+    app.dependency_overrides[get_db_session] = lambda: AsyncMock(spec=AsyncSession)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.get(f"/api/v1/resume/versions/{uuid4()}")
+
+    assert response.status_code == 404
+    assert response.json()["error"]["code"] == "RESUME_VERSION_NOT_FOUND"
+
+
+@pytest.mark.anyio
+async def test_detail_endpoint_maps_invalid_persisted_data(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user = authenticated_user()
+    monkeypatch.setattr(
+        resume_routes,
+        "get_resume_version",
+        AsyncMock(side_effect=ResumeVersionInvalidDraftError),
+    )
+    app.dependency_overrides[get_current_user] = lambda: user
+    app.dependency_overrides[get_db_session] = lambda: AsyncMock(spec=AsyncSession)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.get(f"/api/v1/resume/versions/{uuid4()}")
+
+    assert response.status_code == 409
+    assert response.json()["error"]["code"] == "RESUME_VERSION_INVALID_DATA"

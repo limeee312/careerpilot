@@ -12,7 +12,11 @@ from app.database import get_db_session
 from app.dependencies import get_current_user
 from app.main import app
 from app.models.user import User
-from app.services.resume import ResumeSectionNotFoundError
+from app.services.resume import (
+    DuplicateResumeSkillError,
+    ResumeSaveConflictError,
+    ResumeSectionNotFoundError,
+)
 
 
 @pytest.fixture
@@ -98,3 +102,34 @@ async def test_resume_endpoint_requires_authentication() -> None:
 
     assert response.status_code == 401
     assert response.json()["error"]["code"] == "AUTH_REQUIRED"
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    ("service_error", "expected_code"),
+    [
+        (DuplicateResumeSkillError(), "RESUME_DUPLICATE_SKILL"),
+        (ResumeSaveConflictError(), "RESUME_SAVE_CONFLICT"),
+    ],
+)
+async def test_put_resume_maps_save_conflicts(
+    monkeypatch: pytest.MonkeyPatch,
+    service_error: Exception,
+    expected_code: str,
+) -> None:
+    user = authenticated_user()
+    override_dependencies(user)
+    monkeypatch.setattr(
+        resume_routes,
+        "upsert_resume_master",
+        AsyncMock(side_effect=service_error),
+    )
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.put("/api/v1/resume/master", json={})
+
+    assert response.status_code == 409
+    assert response.json()["error"]["code"] == expected_code
