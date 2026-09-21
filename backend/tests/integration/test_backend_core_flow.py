@@ -111,7 +111,10 @@ async def test_authenticated_core_flow_persists_ai_and_application_graph() -> No
                 },
             )
             assert version_response.status_code == 201
-            version_id = version_response.json()["data"]["id"]
+            saved_version = version_response.json()["data"]
+            version_id = saved_version["id"]
+            saved_skills = saved_version["content"]["skills"]
+            assert [skill["skill_name"] for skill in saved_skills] == ["Python", "Excel"]
 
             application_response = await client.post(
                 "/api/v1/applications",
