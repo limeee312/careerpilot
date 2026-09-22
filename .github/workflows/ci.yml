@@ -26,6 +26,16 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+        env:
+          NEXT_PUBLIC_API_BASE_URL: http://localhost:8765/api/v1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: frontend-e2e-results
+          path: frontend/test-results/
+          if-no-files-found: ignore
 
   backend:
     runs-on: ubuntu-latest
