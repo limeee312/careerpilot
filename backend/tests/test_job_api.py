@@ -62,6 +62,36 @@ def authenticated_user() -> User:
     )
 
 
+def batch_result_record(user_id) -> JobMatchBatch:
+    now = datetime.now(UTC)
+    batch_id = uuid4()
+    return JobMatchBatch(
+        id=batch_id,
+        user_id=user_id,
+        name="秋招重点岗位",
+        status=BatchStatus.DRAFT,
+        total_jobs=1,
+        successful_jobs=0,
+        failed_jobs=0,
+        created_at=now,
+        updated_at=now,
+        jobs=[
+            Job(
+                id=uuid4(),
+                batch_id=batch_id,
+                user_id=user_id,
+                company_name="示例科技",
+                title="产品运营",
+                raw_jd=LONG_JD,
+                created_at=now,
+                updated_at=now,
+                parse_results=[],
+                match_results=[],
+            )
+        ],
+    )
+
+
 @pytest.mark.anyio
 async def test_create_job_batch_uses_authenticated_owner(
     monkeypatch: pytest.MonkeyPatch,
@@ -244,3 +274,53 @@ async def test_result_routes_hide_missing_or_foreign_batches(
         }
     }
     reader.assert_awaited_once()
+
+
+@pytest.mark.anyio
+async def test_analyze_job_batch_returns_current_batch_result(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user = authenticated_user()
+    session = AsyncMock(spec=AsyncSession)
+    batch = batch_result_record(user.id)
+    analyzer = AsyncMock(return_value=batch)
+    ai_client = object()
+    monkeypatch.setattr(job_match_routes, "analyze_job_match_batch", analyzer)
+    app.dependency_overrides[get_current_user] = lambda: user
+    app.dependency_overrides[get_db_session] = lambda: session
+    app.dependency_overrides[job_match_routes.get_ai_client] = lambda: ai_client
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.post(f"/api/v1/job-match/batches/{batch.id}/analyze")
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["id"] == str(batch.id)
+    assert data["jobs"][0]["analysis_status"] == "PENDING"
+    analyzer.assert_awaited_once_with(session, user.id, batch.id, ai_client)
+
+
+@pytest.mark.anyio
+async def test_result_endpoint_returns_owned_batch(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    user = authenticated_user()
+    batch = batch_result_record(user.id)
+    reader = AsyncMock(return_value=batch)
+    monkeypatch.setattr(job_match_routes, "get_job_match_batch", reader)
+    app.dependency_overrides[get_current_user] = lambda: user
+    app.dependency_overrides[get_db_session] = lambda: AsyncMock(spec=AsyncSession)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        response = await client.get(f"/api/v1/job-match/batches/{batch.id}/results")
+
+    assert response.status_code == 200
+    assert response.json()["data"]["jobs"][0]["company_name"] == "示例科技"
+    reader.assert_awaited_once()
+    assert reader.await_args.args[1] == user.id

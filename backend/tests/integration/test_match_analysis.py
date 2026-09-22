@@ -146,7 +146,7 @@ class StubAIClient:
                         }
                     ],
                     "projects": [],
-                    "skill_order": [],
+                    "skill_order": [skill.source_id for skill in input_data.skills],
                     "improvement_suggestions": [],
                     "warnings": [],
                 }
