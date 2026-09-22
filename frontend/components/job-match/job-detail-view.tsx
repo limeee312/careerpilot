@@ -486,7 +486,7 @@ function JobDetailContent({ detail }: { detail: JobMatchDetailData }) {
           <div>
             <h2 className="text-xl font-semibold">下一步行动</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
-              你可以基于当前匹配快照生成针对性简历草稿；投递记录将在后续独立步骤接入。
+              你可以基于当前匹配快照生成针对性简历草稿，并记录实际投递进度。
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
@@ -496,15 +496,12 @@ function JobDetailContent({ detail }: { detail: JobMatchDetailData }) {
             >
               针对该职位优化简历
             </Link>
-            <button
-              aria-disabled="true"
-              className="cursor-not-allowed rounded-xl border border-slate-600 px-5 py-3 text-sm font-semibold text-slate-400"
-              disabled
-              title="将在 CP-025 开放"
-              type="button"
+            <Link
+              className="rounded-xl border border-slate-600 px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-slate-800"
+              href={`/applications/new?jobId=${detail.job_id}`}
             >
               创建投递记录
-            </button>
+            </Link>
           </div>
         </div>
       </section>
