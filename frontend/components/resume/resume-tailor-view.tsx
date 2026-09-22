@@ -588,6 +588,12 @@ function TailorComparison({
           <Link className="font-semibold hover:text-emerald-950" href="/resumes">
             前往简历库 →
           </Link>
+          <Link
+            className="font-semibold hover:text-emerald-950"
+            href={`/applications/new?jobId=${savedVersion.job_id}&versionId=${savedVersion.id}`}
+          >
+            创建投递记录 →
+          </Link>
         </div>
       ) : null}
 
