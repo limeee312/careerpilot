@@ -1,0 +1,2702 @@
+[
+  {
+    "id": "C01",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C01-edu",
+        "content": "学历：本科；专业：市场营销；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C01-exp",
+        "content": "负责用户行为分析和产品体验优化，跟踪转化漏斗。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C01-skill",
+        "content": "技能：SQL、用户访谈"
+      }
+    ],
+    "best_match": "product_ops",
+    "top_3": [
+      "product_ops",
+      "grad27_product",
+      "community_ops"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "product_ops",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C01-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C01-exp",
+            "source_quote": "用户行为分析和产品体验优化"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C01-edu",
+                "source_quote": "毕业年份：2027"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "community_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C01-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供建立社群活动 SOP的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C01-edu",
+                "source_quote": "专业：市场营销"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C02",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C02-edu",
+        "content": "学历：本科；专业：信息管理；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C02-exp",
+        "content": "担任产品经理1年，完成用户调研、PRD 编写和版本验收。 产品经理年限：1年。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C02-skill",
+        "content": "技能：PRD、原型设计"
+      }
+    ],
+    "best_match": "product_manager",
+    "top_3": [
+      "product_manager",
+      "grad27_product",
+      "product_ops"
+    ],
+    "clearly_unsuitable": [
+      "senior_product"
+    ],
+    "comparisons": [
+      {
+        "job_id": "product_manager",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C02-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C02-exp",
+            "source_quote": "完成用户调研、PRD 编写和版本验收"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化定价项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C02-edu",
+                "source_quote": "毕业年份：2027"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C02-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "senior_product",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "experience",
+                "source_id": "C02-exp",
+                "source_quote": "产品经理年限：1年"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供制定产品路线图并推进落地的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C03",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C03-edu",
+        "content": "学历：本科；专业：广告学；毕业年份：2026"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C03-exp",
+        "content": "设计获客和留存实验，复盘渠道转化与活动效果。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C03-skill",
+        "content": "技能：SQL、活动复盘"
+      }
+    ],
+    "best_match": "growth_ops",
+    "top_3": [
+      "growth_ops",
+      "product_ops",
+      "data_analyst"
+    ],
+    "clearly_unsuitable": [
+      "grad27_product"
+    ],
+    "comparisons": [
+      {
+        "job_id": "growth_ops",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C03-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C03-exp",
+            "source_quote": "设计获客和留存实验"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供管理品牌投放预算的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_ops",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C03-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "data_analyst",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C03-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供应用统计因果推断的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C03-edu",
+                "source_quote": "毕业年份：2026"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开展用户调研并提出产品建议的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C04",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C04-edu",
+        "content": "学历：大专；专业：电子商务；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C04-exp",
+        "content": "处理社群反馈与内容审核，记录用户问题。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C04-skill",
+        "content": "技能：表格、用户沟通"
+      }
+    ],
+    "best_match": "community_assistant",
+    "top_3": [
+      "community_assistant",
+      "grad27_product",
+      "community_ops"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "community_assistant",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C04-edu",
+                "source_quote": "学历：大专"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C04-exp",
+            "source_quote": "处理社群反馈与内容审核"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供建立社群活动 SOP的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C04-edu",
+                "source_quote": "毕业年份：2027"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "community_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C04-edu",
+                "source_quote": "学历：大专"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供建立社群活动 SOP的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C04-edu",
+                "source_quote": "专业：电子商务"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C05",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C05-edu",
+        "content": "学历：本科；专业：新闻传播；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C05-exp",
+        "content": "策划并发布短视频内容，分析播放完成率。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C05-skill",
+        "content": "技能：剪辑、内容策划"
+      }
+    ],
+    "best_match": "content_ops",
+    "top_3": [
+      "content_ops",
+      "community_ops",
+      "growth_ops"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "content_ops",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C05-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C05-exp",
+            "source_quote": "策划并发布短视频内容"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供撰写直播脚本的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "community_ops",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C05-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供建立社群活动 SOP的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "growth_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C05-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供管理品牌投放预算的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C05-edu",
+                "source_quote": "专业：新闻传播"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C06",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C06-edu",
+        "content": "学历：本科；专业：统计学；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C06-exp",
+        "content": "建立业务指标报表，使用 SQL 查询订单数据。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C06-skill",
+        "content": "技能：SQL、Excel、仪表板"
+      }
+    ],
+    "best_match": "data_analyst",
+    "top_3": [
+      "data_analyst",
+      "product_ops",
+      "growth_ops"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "data_analyst",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C06-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C06-exp",
+            "source_quote": "建立业务指标报表"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供应用统计因果推断的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_ops",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C06-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "growth_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C06-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供管理品牌投放预算的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C06-edu",
+                "source_quote": "专业：统计学"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C07",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C07-edu",
+        "content": "学历：硕士；专业：统计学；毕业年份：2026"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C07-exp",
+        "content": "构建用户留存报表，使用 SQL 和 Python 分析数据。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C07-skill",
+        "content": "技能：SQL、Python、统计建模"
+      }
+    ],
+    "best_match": "data_analyst",
+    "top_3": [
+      "data_analyst",
+      "ux_research",
+      "product_ops"
+    ],
+    "clearly_unsuitable": [
+      "frontend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "data_analyst",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C07-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C07-exp",
+            "source_quote": "构建用户留存报表"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供应用统计因果推断的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "ux_research",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C07-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供设计眼动实验的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C07-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "frontend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C07-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 React 用户界面的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C08",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C08-edu",
+        "content": "学历：本科；专业：经济学；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C08-exp",
+        "content": "分析渠道转化与广告投放数据，提出获客实验。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C08-skill",
+        "content": "技能：SQL、渠道归因"
+      }
+    ],
+    "best_match": "growth_ops",
+    "top_3": [
+      "growth_ops",
+      "data_analyst",
+      "product_ops"
+    ],
+    "clearly_unsuitable": [
+      "ux_research"
+    ],
+    "comparisons": [
+      {
+        "job_id": "growth_ops",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C08-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C08-exp",
+            "source_quote": "提出获客实验"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供管理品牌投放预算的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "data_analyst",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C08-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供应用统计因果推断的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C08-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "ux_research",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C08-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供组织用户访谈与可用性研究的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C09",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C09-edu",
+        "content": "学历：硕士；专业：应用心理学；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C09-exp",
+        "content": "组织用户访谈和可用性研究，形成研究洞察报告。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C09-skill",
+        "content": "技能：访谈、定性分析"
+      }
+    ],
+    "best_match": "ux_research",
+    "top_3": [
+      "ux_research",
+      "product_manager",
+      "grad27_product"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "ux_research",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C09-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C09-exp",
+            "source_quote": "组织用户访谈和可用性研究"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供设计眼动实验的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_manager",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C09-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化定价项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C09-edu",
+                "source_quote": "毕业年份：2027"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C09-edu",
+                "source_quote": "专业：应用心理学"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C10",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C10-edu",
+        "content": "学历：本科；专业：工业设计；毕业年份：2026"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C10-exp",
+        "content": "使用 Figma 绘制交互原型并进行可用性验证。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C10-skill",
+        "content": "技能：Figma、交互设计"
+      }
+    ],
+    "best_match": "ux_design",
+    "top_3": [
+      "ux_design",
+      "product_manager",
+      "ux_research"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "ux_design",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C10-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C10-exp",
+            "source_quote": "绘制交互原型并进行可用性验证"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供维护跨端设计系统的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_manager",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C10-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化定价项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "ux_research",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C10-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供设计眼动实验的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C10-edu",
+                "source_quote": "专业：工业设计"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C11",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C11-edu",
+        "content": "学历：本科；专业：社会学；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C11-exp",
+        "content": "开展用户访谈并编写需求分析和 PRD 初稿。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C11-skill",
+        "content": "技能：访谈、PRD"
+      }
+    ],
+    "best_match": "grad27_product",
+    "top_3": [
+      "grad27_product",
+      "product_manager",
+      "ux_research"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C11-edu",
+                "source_quote": "毕业年份：2027"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C11-exp",
+            "source_quote": "开展用户访谈并编写需求分析"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_manager",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C11-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化定价项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "ux_research",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C11-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供设计眼动实验的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C11-edu",
+                "source_quote": "专业：社会学"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C12",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C12-edu",
+        "content": "学历：硕士；专业：人机交互；毕业年份：2026"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C12-exp",
+        "content": "主持用户访谈和可用性测试，整理研究洞察。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C12-skill",
+        "content": "技能：可用性测试、访谈"
+      }
+    ],
+    "best_match": "ux_research",
+    "top_3": [
+      "ux_research",
+      "product_manager",
+      "data_analyst"
+    ],
+    "clearly_unsuitable": [
+      "grad27_product"
+    ],
+    "comparisons": [
+      {
+        "job_id": "ux_research",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C12-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C12-exp",
+            "source_quote": "主持用户访谈和可用性测试"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供设计眼动实验的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_manager",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C12-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化定价项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "data_analyst",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C12-edu",
+                "source_quote": "学历：硕士"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供应用统计因果推断的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C12-edu",
+                "source_quote": "毕业年份：2026"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R1",
+            "reason": "毕业年份为2026，与仅限2027届的要求冲突"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C13",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C13-edu",
+        "content": "学历：本科；专业：计算机科学；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C13-exp",
+        "content": "开发 React 用户界面，使用 TypeScript 编写组件测试。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C13-skill",
+        "content": "技能：React、TypeScript、测试"
+      }
+    ],
+    "best_match": "frontend_dev",
+    "top_3": [
+      "frontend_dev",
+      "backend_dev",
+      "product_manager"
+    ],
+    "clearly_unsuitable": [
+      "ux_research"
+    ],
+    "comparisons": [
+      {
+        "job_id": "frontend_dev",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C13-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C13-exp",
+            "source_quote": "开发 React 用户界面"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供完成无障碍审计的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C13-edu",
+                "source_quote": "专业：计算机科学"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供维护分布式消息队列的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_manager",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C13-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化定价项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "ux_research",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C13-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供组织用户访谈与可用性研究的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C14",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C14-edu",
+        "content": "学历：本科；专业：计算机科学；毕业年份：2026"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C14-exp",
+        "content": "使用 Python 开发 API 和数据库服务，编写接口测试。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C14-skill",
+        "content": "技能：Python、SQL、API"
+      }
+    ],
+    "best_match": "backend_dev",
+    "top_3": [
+      "backend_dev",
+      "data_analyst",
+      "frontend_dev"
+    ],
+    "clearly_unsuitable": [
+      "grad27_product"
+    ],
+    "comparisons": [
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C14-edu",
+                "source_quote": "专业：计算机科学"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C14-exp",
+            "source_quote": "使用 Python 开发 API 和数据库服务"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供维护分布式消息队列的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "data_analyst",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C14-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供应用统计因果推断的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "frontend_dev",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C14-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供完成无障碍审计的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C14-edu",
+                "source_quote": "毕业年份：2026"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开展用户调研并提出产品建议的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C15",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C15-edu",
+        "content": "学历：本科；专业：软件工程；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C15-exp",
+        "content": "开发 Python API 并维护关系型数据库，分析慢查询。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C15-skill",
+        "content": "技能：Python、SQL、数据库"
+      }
+    ],
+    "best_match": "backend_dev",
+    "top_3": [
+      "backend_dev",
+      "data_analyst",
+      "frontend_dev"
+    ],
+    "clearly_unsuitable": [
+      "ux_research"
+    ],
+    "comparisons": [
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C15-edu",
+                "source_quote": "专业：软件工程"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C15-exp",
+            "source_quote": "开发 Python API 并维护关系型数据库"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供维护分布式消息队列的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "data_analyst",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C15-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供应用统计因果推断的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "frontend_dev",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C15-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供完成无障碍审计的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "ux_research",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C15-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供组织用户访谈与可用性研究的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C16",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C16-edu",
+        "content": "学历：大专；专业：软件测试；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C16-exp",
+        "content": "设计并执行回归测试用例，使用 Python 编写测试脚本。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C16-skill",
+        "content": "技能：Python、测试用例"
+      }
+    ],
+    "best_match": "qa_engineer",
+    "top_3": [
+      "qa_engineer",
+      "frontend_dev",
+      "grad27_product"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "qa_engineer",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C16-edu",
+                "source_quote": "学历：大专"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C16-exp",
+            "source_quote": "设计并执行回归测试用例"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供开展性能压测的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "frontend_dev",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C16-edu",
+                "source_quote": "学历：大专"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供完成无障碍审计的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C16-edu",
+                "source_quote": "毕业年份：2027"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C16-edu",
+                "source_quote": "专业：软件测试"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C17",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C17-edu",
+        "content": "学历：本科；专业：英语；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C17-exp",
+        "content": "使用英语协调海外团队，执行海外本地化活动。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C17-skill",
+        "content": "技能：英语、本地化"
+      }
+    ],
+    "best_match": "international_ops",
+    "top_3": [
+      "international_ops",
+      "content_ops",
+      "customer_success"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "international_ops",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C17-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C17-exp",
+            "source_quote": "执行海外本地化活动"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供熟悉海外税务合规的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "content_ops",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C17-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供撰写直播脚本的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "customer_success",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C17-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供主导续约谈判的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C17-edu",
+                "source_quote": "专业：英语"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C18",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C18-edu",
+        "content": "学历：本科；专业：工商管理；毕业年份：2026"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C18-exp",
+        "content": "推动 B2B 客户上线，使用 CRM 跟踪客户问题。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C18-skill",
+        "content": "技能：CRM、客户培训"
+      }
+    ],
+    "best_match": "customer_success",
+    "top_3": [
+      "customer_success",
+      "product_ops",
+      "international_ops"
+    ],
+    "clearly_unsuitable": [
+      "grad27_product"
+    ],
+    "comparisons": [
+      {
+        "job_id": "customer_success",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C18-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C18-exp",
+            "source_quote": "推动 B2B 客户上线"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供主导续约谈判的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_ops",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C18-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "international_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C18-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供熟悉海外税务合规的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C18-edu",
+                "source_quote": "毕业年份：2026"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开展用户调研并提出产品建议的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C19",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C19-edu",
+        "content": "学历：本科；专业：市场营销；毕业年份：2027"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C19-exp",
+        "content": "维护销售漏斗与业务报表，使用 CRM 分析线索。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C19-skill",
+        "content": "技能：CRM、Excel、报表"
+      }
+    ],
+    "best_match": "sales_ops",
+    "top_3": [
+      "sales_ops",
+      "customer_success",
+      "growth_ops"
+    ],
+    "clearly_unsuitable": [
+      "backend_dev"
+    ],
+    "comparisons": [
+      {
+        "job_id": "sales_ops",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C19-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C19-exp",
+            "source_quote": "维护销售漏斗与业务报表"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供制定销售激励制度的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "customer_success",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C19-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供主导续约谈判的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "growth_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C19-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供管理品牌投放预算的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "backend_dev",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C19-edu",
+                "source_quote": "专业：市场营销"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开发 API 和数据库服务的直接证据"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C20",
+    "source_kind": "synthetic",
+    "resume_evidence": [
+      {
+        "source_type": "education",
+        "source_id": "C20-edu",
+        "content": "学历：本科；专业：信息管理；毕业年份：2022"
+      },
+      {
+        "source_type": "experience",
+        "source_id": "C20-exp",
+        "content": "担任产品经理4年，制定产品路线图并跟踪产品指标。 产品经理年限：4年。"
+      },
+      {
+        "source_type": "skill",
+        "source_id": "C20-skill",
+        "content": "技能：SQL、路线图"
+      }
+    ],
+    "best_match": "senior_product",
+    "top_3": [
+      "senior_product",
+      "product_manager",
+      "product_ops"
+    ],
+    "clearly_unsuitable": [
+      "grad27_product"
+    ],
+    "comparisons": [
+      {
+        "job_id": "senior_product",
+        "expected_rank": 1,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "experience",
+                "source_id": "C20-exp",
+                "source_quote": "产品经理年限：4年"
+              }
+            ]
+          }
+        },
+        "key_strengths": [
+          {
+            "requirement_key": "R2",
+            "source_type": "experience",
+            "source_id": "C20-exp",
+            "source_quote": "制定产品路线图并跟踪产品指标"
+          }
+        ],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供管理海外产品团队的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_manager",
+        "expected_rank": 2,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C20-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供参与商业化定价项目的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "product_ops",
+        "expected_rank": 3,
+        "clearly_unsuitable": false,
+        "hard_gates": {
+          "R1": {
+            "status": "PASS",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C20-edu",
+                "source_quote": "学历：本科"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R4",
+            "reason": "简历未提供独立完成 A/B 测试报告的直接证据"
+          }
+        ]
+      },
+      {
+        "job_id": "grad27_product",
+        "expected_rank": 4,
+        "clearly_unsuitable": true,
+        "hard_gates": {
+          "R1": {
+            "status": "FAIL",
+            "evidence": [
+              {
+                "source_type": "education",
+                "source_id": "C20-edu",
+                "source_quote": "毕业年份：2022"
+              }
+            ]
+          }
+        },
+        "key_strengths": [],
+        "key_gaps": [
+          {
+            "requirement_key": "R2",
+            "reason": "简历未提供开展用户调研并提出产品建议的直接证据"
+          }
+        ]
+      }
+    ]
+  }
+]
