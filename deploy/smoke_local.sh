@@ -29,6 +29,6 @@ curl --fail --silent --show-error \
   http://localhost:8000/api/v1/auth/register > /dev/null
 
 curl --fail --silent --show-error --retry 30 --retry-delay 2 \
-  --retry-connrefused http://localhost:3000/login > /dev/null
+  --retry-all-errors http://localhost:3000/login > /dev/null
 
 echo 'Local Compose smoke check passed.'
