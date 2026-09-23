@@ -1,0 +1,42 @@
+[
+  {
+    "id": "T01",
+    "case_id": "C05",
+    "job_id": "content_ops",
+    "unsupported_claim_category": "metric",
+    "unsupported_claim_probe": "单条视频获得100万次播放",
+    "expected": "reject_as_new_fact"
+  },
+  {
+    "id": "T02",
+    "case_id": "C09",
+    "job_id": "ux_research",
+    "unsupported_claim_category": "skill",
+    "unsupported_claim_probe": "熟练使用眼动追踪设备",
+    "expected": "reject_as_new_fact"
+  },
+  {
+    "id": "T03",
+    "case_id": "C13",
+    "job_id": "frontend_dev",
+    "unsupported_claim_category": "company",
+    "unsupported_claim_probe": "曾在星河科技担任前端负责人",
+    "expected": "reject_as_new_fact"
+  },
+  {
+    "id": "T04",
+    "case_id": "C17",
+    "job_id": "international_ops",
+    "unsupported_claim_category": "degree",
+    "unsupported_claim_probe": "拥有英语语言学硕士学位",
+    "expected": "reject_as_new_fact"
+  },
+  {
+    "id": "T05",
+    "case_id": "C20",
+    "job_id": "senior_product",
+    "unsupported_claim_category": "project",
+    "unsupported_claim_probe": "主导欧洲跨境支付项目",
+    "expected": "reject_as_new_fact"
+  }
+]

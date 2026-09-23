@@ -1,0 +1,886 @@
+[
+  {
+    "id": "product_ops",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "产品运营",
+      "location": "杭州",
+      "raw_jd": "岗位：产品运营。任职要求：本科及以上学历；分析用户行为并优化产品体验；使用 SQL 分析转化漏斗；独立完成 A/B 测试报告。"
+    },
+    "parsed_job": {
+      "role_summary": "分析用户行为并优化产品体验",
+      "responsibilities_summary": [
+        "分析用户行为并优化产品体验"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "分析用户行为并优化产品体验",
+          "source_quote": "分析用户行为并优化产品体验",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 SQL 分析转化漏斗",
+          "source_quote": "使用 SQL 分析转化漏斗",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "独立完成 A/B 测试报告",
+          "source_quote": "独立完成 A/B 测试报告",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "community_ops",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "社群运营",
+      "location": "杭州",
+      "raw_jd": "岗位：社群运营。任职要求：本科及以上学历；维护社群活跃和用户关系；分析社群互动数据；建立社群活动 SOP。"
+    },
+    "parsed_job": {
+      "role_summary": "维护社群活跃和用户关系",
+      "responsibilities_summary": [
+        "维护社群活跃和用户关系"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "维护社群活跃和用户关系",
+          "source_quote": "维护社群活跃和用户关系",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "分析社群互动数据",
+          "source_quote": "分析社群互动数据",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "建立社群活动 SOP",
+          "source_quote": "建立社群活动 SOP",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "community_assistant",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "社群运营助理",
+      "location": "杭州",
+      "raw_jd": "岗位：社群运营助理。任职要求：大专及以上学历；处理社群反馈和内容审核；使用表格整理用户问题；建立社群活动 SOP。"
+    },
+    "parsed_job": {
+      "role_summary": "处理社群反馈和内容审核",
+      "responsibilities_summary": [
+        "处理社群反馈和内容审核"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "大专及以上学历",
+          "source_quote": "大专及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "处理社群反馈和内容审核",
+          "source_quote": "处理社群反馈和内容审核",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用表格整理用户问题",
+          "source_quote": "使用表格整理用户问题",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "建立社群活动 SOP",
+          "source_quote": "建立社群活动 SOP",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "content_ops",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "内容运营",
+      "location": "杭州",
+      "raw_jd": "岗位：内容运营。任职要求：本科及以上学历；策划并发布短视频内容；复盘内容播放和转化数据；撰写直播脚本。"
+    },
+    "parsed_job": {
+      "role_summary": "策划并发布短视频内容",
+      "responsibilities_summary": [
+        "策划并发布短视频内容"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "策划并发布短视频内容",
+          "source_quote": "策划并发布短视频内容",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "复盘内容播放和转化数据",
+          "source_quote": "复盘内容播放和转化数据",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "撰写直播脚本",
+          "source_quote": "撰写直播脚本",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "data_analyst",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "数据分析师",
+      "location": "杭州",
+      "raw_jd": "岗位：数据分析师。任职要求：本科及以上学历；建立业务指标和分析报表；使用 SQL 查询业务数据；应用统计因果推断。"
+    },
+    "parsed_job": {
+      "role_summary": "建立业务指标和分析报表",
+      "responsibilities_summary": [
+        "建立业务指标和分析报表"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "建立业务指标和分析报表",
+          "source_quote": "建立业务指标和分析报表",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 SQL 查询业务数据",
+          "source_quote": "使用 SQL 查询业务数据",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "应用统计因果推断",
+          "source_quote": "应用统计因果推断",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "ux_research",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "用户研究员",
+      "location": "杭州",
+      "raw_jd": "岗位：用户研究员。任职要求：硕士及以上学历；组织用户访谈与可用性研究；整理访谈记录形成研究洞察；设计眼动实验。"
+    },
+    "parsed_job": {
+      "role_summary": "组织用户访谈与可用性研究",
+      "responsibilities_summary": [
+        "组织用户访谈与可用性研究"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "硕士及以上学历",
+          "source_quote": "硕士及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "组织用户访谈与可用性研究",
+          "source_quote": "组织用户访谈与可用性研究",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "整理访谈记录形成研究洞察",
+          "source_quote": "整理访谈记录形成研究洞察",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "设计眼动实验",
+          "source_quote": "设计眼动实验",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "product_manager",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "产品经理",
+      "location": "杭州",
+      "raw_jd": "岗位：产品经理。任职要求：本科及以上学历；开展需求调研并制定产品方案；编写 PRD 和验收标准；参与商业化定价项目。"
+    },
+    "parsed_job": {
+      "role_summary": "开展需求调研并制定产品方案",
+      "responsibilities_summary": [
+        "开展需求调研并制定产品方案"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "开展需求调研并制定产品方案",
+          "source_quote": "开展需求调研并制定产品方案",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "编写 PRD 和验收标准",
+          "source_quote": "编写 PRD 和验收标准",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "参与商业化定价项目",
+          "source_quote": "参与商业化定价项目",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "ux_design",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "交互设计师",
+      "location": "杭州",
+      "raw_jd": "岗位：交互设计师。任职要求：本科及以上学历；绘制交互原型并验证体验；使用 Figma 制作交互稿；维护跨端设计系统。"
+    },
+    "parsed_job": {
+      "role_summary": "绘制交互原型并验证体验",
+      "responsibilities_summary": [
+        "绘制交互原型并验证体验"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "绘制交互原型并验证体验",
+          "source_quote": "绘制交互原型并验证体验",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 Figma 制作交互稿",
+          "source_quote": "使用 Figma 制作交互稿",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "维护跨端设计系统",
+          "source_quote": "维护跨端设计系统",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "frontend_dev",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "前端开发",
+      "location": "杭州",
+      "raw_jd": "岗位：前端开发。任职要求：本科及以上学历；开发 React 用户界面；使用 TypeScript 和自动化测试；完成无障碍审计。"
+    },
+    "parsed_job": {
+      "role_summary": "开发 React 用户界面",
+      "responsibilities_summary": [
+        "开发 React 用户界面"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "开发 React 用户界面",
+          "source_quote": "开发 React 用户界面",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 TypeScript 和自动化测试",
+          "source_quote": "使用 TypeScript 和自动化测试",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "完成无障碍审计",
+          "source_quote": "完成无障碍审计",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "backend_dev",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "后端开发",
+      "location": "杭州",
+      "raw_jd": "岗位：后端开发。任职要求：计算机及相关专业本科及以上学历；开发 API 和数据库服务；使用 Python 实现接口；维护分布式消息队列。"
+    },
+    "parsed_job": {
+      "role_summary": "开发 API 和数据库服务",
+      "responsibilities_summary": [
+        "开发 API 和数据库服务"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "计算机及相关专业本科及以上学历",
+          "source_quote": "计算机及相关专业本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "开发 API 和数据库服务",
+          "source_quote": "开发 API 和数据库服务",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 Python 实现接口",
+          "source_quote": "使用 Python 实现接口",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "维护分布式消息队列",
+          "source_quote": "维护分布式消息队列",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "growth_ops",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "增长运营",
+      "location": "杭州",
+      "raw_jd": "岗位：增长运营。任职要求：本科及以上学历；设计获客和留存实验；分析渠道转化和投放数据；管理品牌投放预算。"
+    },
+    "parsed_job": {
+      "role_summary": "设计获客和留存实验",
+      "responsibilities_summary": [
+        "设计获客和留存实验"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "设计获客和留存实验",
+          "source_quote": "设计获客和留存实验",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "分析渠道转化和投放数据",
+          "source_quote": "分析渠道转化和投放数据",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "管理品牌投放预算",
+          "source_quote": "管理品牌投放预算",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "international_ops",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "海外运营",
+      "location": "杭州",
+      "raw_jd": "岗位：海外运营。任职要求：本科及以上学历；执行海外本地化活动；使用英语与海外团队沟通；熟悉海外税务合规。"
+    },
+    "parsed_job": {
+      "role_summary": "执行海外本地化活动",
+      "responsibilities_summary": [
+        "执行海外本地化活动"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "执行海外本地化活动",
+          "source_quote": "执行海外本地化活动",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用英语与海外团队沟通",
+          "source_quote": "使用英语与海外团队沟通",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "熟悉海外税务合规",
+          "source_quote": "熟悉海外税务合规",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "customer_success",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "客户成功",
+      "location": "杭州",
+      "raw_jd": "岗位：客户成功。任职要求：本科及以上学历；推动 B2B 客户上线及使用；使用 CRM 跟踪客户问题；主导续约谈判。"
+    },
+    "parsed_job": {
+      "role_summary": "推动 B2B 客户上线及使用",
+      "responsibilities_summary": [
+        "推动 B2B 客户上线及使用"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "推动 B2B 客户上线及使用",
+          "source_quote": "推动 B2B 客户上线及使用",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 CRM 跟踪客户问题",
+          "source_quote": "使用 CRM 跟踪客户问题",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "主导续约谈判",
+          "source_quote": "主导续约谈判",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "grad27_product",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "2027届产品管培生",
+      "location": "杭州",
+      "raw_jd": "岗位：2027届产品管培生。任职要求：仅限2027届毕业生；开展用户调研并提出产品建议；编写 PRD 文档；参与商业化项目。"
+    },
+    "parsed_job": {
+      "role_summary": "开展用户调研并提出产品建议",
+      "responsibilities_summary": [
+        "开展用户调研并提出产品建议"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "仅限2027届毕业生",
+          "source_quote": "仅限2027届毕业生",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "开展用户调研并提出产品建议",
+          "source_quote": "开展用户调研并提出产品建议",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "编写 PRD 文档",
+          "source_quote": "编写 PRD 文档",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "参与商业化项目",
+          "source_quote": "参与商业化项目",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "senior_product",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "资深产品经理",
+      "location": "杭州",
+      "raw_jd": "岗位：资深产品经理。任职要求：至少3年产品经理经验；制定产品路线图并推进落地；使用 SQL 跟踪产品指标；管理海外产品团队。"
+    },
+    "parsed_job": {
+      "role_summary": "制定产品路线图并推进落地",
+      "responsibilities_summary": [
+        "制定产品路线图并推进落地"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "至少3年产品经理经验",
+          "source_quote": "至少3年产品经理经验",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "制定产品路线图并推进落地",
+          "source_quote": "制定产品路线图并推进落地",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 SQL 跟踪产品指标",
+          "source_quote": "使用 SQL 跟踪产品指标",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "管理海外产品团队",
+          "source_quote": "管理海外产品团队",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "qa_engineer",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "软件测试工程师",
+      "location": "杭州",
+      "raw_jd": "岗位：软件测试工程师。任职要求：大专及以上学历；设计并执行软件测试用例；使用 Python 编写自动化测试；开展性能压测。"
+    },
+    "parsed_job": {
+      "role_summary": "设计并执行软件测试用例",
+      "responsibilities_summary": [
+        "设计并执行软件测试用例"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "大专及以上学历",
+          "source_quote": "大专及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "设计并执行软件测试用例",
+          "source_quote": "设计并执行软件测试用例",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 Python 编写自动化测试",
+          "source_quote": "使用 Python 编写自动化测试",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "开展性能压测",
+          "source_quote": "开展性能压测",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  },
+  {
+    "id": "sales_ops",
+    "parser_input": {
+      "company_name": "评估样本企业",
+      "title": "销售运营",
+      "location": "杭州",
+      "raw_jd": "岗位：销售运营。任职要求：本科及以上学历；维护销售漏斗与业务报表；使用 CRM 和表格分析线索；制定销售激励制度。"
+    },
+    "parsed_job": {
+      "role_summary": "维护销售漏斗与业务报表",
+      "responsibilities_summary": [
+        "维护销售漏斗与业务报表"
+      ],
+      "requirements": [
+        {
+          "requirement_key": "R1",
+          "requirement_type": "HARD",
+          "dimension": null,
+          "requirement_text": "本科及以上学历",
+          "source_quote": "本科及以上学历",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R2",
+          "requirement_type": "CORE",
+          "dimension": "RESPONSIBILITY",
+          "requirement_text": "维护销售漏斗与业务报表",
+          "source_quote": "维护销售漏斗与业务报表",
+          "importance": 2
+        },
+        {
+          "requirement_key": "R3",
+          "requirement_type": "STANDARD",
+          "dimension": "TOOLS_METHODS",
+          "requirement_text": "使用 CRM 和表格分析线索",
+          "source_quote": "使用 CRM 和表格分析线索",
+          "importance": 1
+        },
+        {
+          "requirement_key": "R4",
+          "requirement_type": "PREFERRED",
+          "dimension": "BUSINESS_DOMAIN",
+          "requirement_text": "制定销售激励制度",
+          "source_quote": "制定销售激励制度",
+          "importance": 1
+        }
+      ],
+      "business_domains": [],
+      "tools": [],
+      "ambiguous_points": []
+    }
+  }
+]
