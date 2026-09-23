@@ -5,7 +5,7 @@ set -euo pipefail
 export APP_DOMAIN=localhost
 export BASIC_AUTH_USER=ci
 export BASIC_AUTH_HASH
-BASIC_AUTH_HASH=$(printf 'ci-only-password' | docker run --rm -i caddy:2-alpine caddy hash-password)
+BASIC_AUTH_HASH=$(docker run --rm caddy:2-alpine caddy hash-password --plaintext 'ci-only-password')
 export POSTGRES_DB=careerpilot
 export POSTGRES_USER=careerpilot
 export POSTGRES_PASSWORD=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
