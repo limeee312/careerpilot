@@ -33,21 +33,26 @@ careerpilot/
 - [数据库 Schema 与 ERD](docs/DATABASE.md)
 - [AI Skills 工程规格](docs/AI_SKILLS.md)
 
-## 本地开发
+## 本地运行
 
-前置要求：
+安装并启动 [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)
+（或其他包含 Docker Compose 的 Docker 环境）。使用容器运行时，无需单独安装 Node.js、Python 或 PostgreSQL。
 
-- Node.js 24
-- Python 3.12
-- [uv](https://docs.astral.sh/uv/)
-- Docker 与 Docker Compose
+首次启动，在仓库根目录运行；Windows PowerShell：
 
-首次启动：
+```powershell
+Copy-Item .env.example .env
+docker compose up --build
+```
+
+macOS / Linux：
 
 ```bash
 cp .env.example .env
 docker compose up --build
 ```
+
+Compose 会等待数据库就绪，自动运行 Alembic 迁移，再启动后端和前端。首次构建需要下载镜像和依赖。已有 `.env` 时无需再次复制，以免覆盖自己的配置。
 
 服务地址：
 
@@ -57,7 +62,9 @@ docker compose up --build
 - Liveness：<http://localhost:8000/health>
 - Readiness：<http://localhost:8000/health/ready>
 
-如需分别启动服务，先启动数据库：
+可以直接注册账号、编辑简历、查看页面；无需真实简历也能先启动和查看产品。若需测试 AI 职位分析或岗位版简历，请在 `.env` 中填写服务端 `OPENAI_API_KEY` 与 `OPENAI_MODEL`，然后重新运行 `docker compose up --build`。请勿提交 `.env`。退出前台运行按 Ctrl+C；需要停止后台容器时运行 `docker compose down`，默认保留数据库卷。
+
+如需分别启动服务，需安装 Node.js 24、Python 3.12、[uv](https://docs.astral.sh/uv/) 与 Docker Compose。先启动数据库：
 
 ```bash
 docker compose up -d db
