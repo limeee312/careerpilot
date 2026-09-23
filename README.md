@@ -80,6 +80,12 @@ npm install
 npm run dev
 ```
 
+## 生产部署
+
+单域名 HTTPS 私有演示部署的环境配置、迁移、健康检查与备份步骤见
+[CP-032 部署说明](deploy/README.md)。生产环境使用 `docker-compose.prod.yml`，
+与本地开发的 Compose 配置分开。
+
 ## 测试
 
 ```bash
